@@ -1,0 +1,24 @@
+{
+  "name": "expo-dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": { "VARIANT": "16-bullseye" }
+  },
+  "workspaceFolder": "/root/workspace",
+
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
+    // expo and react native extensions
+    "bycedric.vscode-expo",
+    "msjsdiag.vscode-react-native",
+    "eg2.vscode-npm-script",
+    // prettier
+    "esbenp.prettier-vscode",
+    // git extensions that are highly recommended
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    // nice file icons from vscode icons team
+    "vscode-icons-team.vscode-icons"
+  ],
+  "forwardPorts": [19000, 19001, 19002]
+}
