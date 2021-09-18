@@ -1,7 +1,7 @@
 import { ImageSourcePropType } from "react-native";
 
 export type CharityType = {
-  id: number
+  id: string
   title: string
   category: string
   description: string

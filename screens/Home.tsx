@@ -9,6 +9,11 @@ import { RootTabScreenProps } from '../types';
 import { CharityType } from '../types/charity';
 
 export default function Home({ navigation }: RootTabScreenProps<'Home'>) {
+  const SummaryCard = ({ color }: { color: string }) => (
+    <Div bg={color}>
+    </Div>
+  )
+
   const HomeCard = ({ title, source }: CharityType) => (
     <TouchableOpacity activeOpacity={0.8}>
       <Div w={Layout.window.width / 3} rounded="md" shadow="sm" bg="white" mr={14}>
@@ -27,7 +32,9 @@ export default function Home({ navigation }: RootTabScreenProps<'Home'>) {
     </TouchableOpacity>
   )
 
-  const recommended = charities.filter((charity: CharityType) => charity.recommended)
+  const recommended = charities.filter((charity: CharityType) => charity.recommended).map(c => ({
+    ...c, id: c.id.toString()
+  }))
 
   return (
     <Div flex={1} alignItems="center" justifyContent="center">
@@ -43,7 +50,7 @@ export default function Home({ navigation }: RootTabScreenProps<'Home'>) {
         decelerationRate={0}
         scrollEventThrottle={16}
         data={recommended}
-        keyExtractor={(item, index) => `${item.id}`}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => <HomeCard {...item} />}
       />
     </Div>

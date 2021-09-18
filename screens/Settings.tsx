@@ -41,13 +41,8 @@ export default function Settings({ navigation }: RootTabScreenProps<'Settings'>)
         <Slider
           minimumValue={0}
           maximumValue={1000}
-          // styles={{ height: 19 }}
-          thumbStyle={styles.thumb}
-          trackStyle={{ height: 6, borderRadius: 6 }}
           minimumTrackTintColor={Colors.secondary}
           maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
-        // value={this.state.budget}
-        // onValueChange={value => this.setState({ budget: value })}
         />
       </Div>
       {/* </ScrollView> */}

@@ -10,7 +10,9 @@ import { CharityType } from '../../types/charity';
 
 export default function Charities({ navigation }: RootTabScreenProps<'Home'>) {
   const [searchInput, setSearchInput] = React.useState('')
-  const filtered = charities.filter(charity => charity.title.includes(searchInput))
+  const filtered = charities.filter(charity => charity.title.includes(searchInput)).map(c => ({
+    ...c, id: c.id.toString()
+  }))
 
   function searchFilterFunc(text: string) {
     setSearchInput(text)

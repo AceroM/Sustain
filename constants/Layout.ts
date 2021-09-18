@@ -9,5 +9,6 @@ export default {
     height,
   },
   spacing: 16,
+  radius: 6,
   isSmallDevice: width < 375,
 };
