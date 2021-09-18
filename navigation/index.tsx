@@ -11,8 +11,8 @@ import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
 import Charities from '../screens/Charities';
 import CharityModal from '../screens/CharityModal';
+import TabOneScreen from '../screens/Dashboard';
 import DonateSuccess from '../screens/DonateSuccess';
-import TabOneScreen from '../screens/Home';
 // import LoginScreen from '../screens/LoginScreen';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
@@ -70,6 +70,7 @@ function BottomTabNavigator() {
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'Home'>) => ({
           title: 'Home',
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
             <Pressable
