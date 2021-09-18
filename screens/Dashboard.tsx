@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import {
   Dimensions, FlatList, Image, Modal, ScrollView, StyleSheet, TouchableOpacity, View
 } from "react-native";
+import MapView, { Marker } from 'react-native-maps';
 import * as Icon from "react-native-vector-icons";
 import { NavigationActions } from "react-navigation";
 import Badge from '../components/Badge';
@@ -103,8 +104,6 @@ const profile = {
   newsletter: false
 };
 
-
-
 class Dashboard extends Component {
   state = {
     showModal: false,
@@ -119,11 +118,6 @@ class Dashboard extends Component {
   };
 
   async componentDidMount() {
-    await this.props.storeCharity(myCharities[0]);
-    await this.props.storeCharity(myCharities[1]);
-    await this.props.storeCharity(myCharities[2]);
-    await this.props.getCharity();
-    // console.log(this.props.charities)
     this.setState({ showModal: false });
   }
 
@@ -191,7 +185,7 @@ class Dashboard extends Component {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          navigation.navigate("SingleCharity", {
+          navigation.navigate("Charity", {
             charity,
             charityImage: charity.source,
             resizeMode: "cover"
@@ -397,6 +391,36 @@ class Dashboard extends Component {
           <Text spacing={0.4} transform="uppercase">
             Recent Transactions
           </Text>
+          <Block style={{ width: '100%', height: 350 }}>
+            <MapView
+              style={{ marginTop: 10, flex: 1, borderRadius: 30 }}
+              region={{
+                latitude: 40.73978092263567,
+                longitude: -73.87333547273988,
+                latitudeDelta: 0.06,
+                longitudeDelta: 0.06,
+              }}
+              customMapStyle={require('../assets/mapstyles.json')}
+            >
+              <Marker
+                rotation={-15}
+                anchor={{ x: 0.5, y: 0.5 }}
+                coordinate={{ latitude: 40.728399, longitude: -73.883771 }}
+              >
+                <Badge color={rgba(theme.colors.primary, "0.2")} size={77}>
+                  <TouchableOpacity activeOpacity={0.8}>
+                    <Badge color={rgba(theme.colors.primary, "0.2")} size={57}>
+                      <Icon.MaterialCommunityIcons
+                        name="gift"
+                        size={57 / 2.5}
+                        color="black"
+                      />
+                    </Badge>
+                  </TouchableOpacity>
+                </Badge>
+              </Marker>
+            </MapView>
+          </Block>
           <Block>
             <Block style={{ paddingTop: 10 }}>
               {transactions.map((t, i) => {
