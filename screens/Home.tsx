@@ -78,7 +78,7 @@ export default function Home({ navigation }: RootTabScreenProps<'Home'>) {
 const styles = StyleSheet.create({
   container: {
     padding: 25,
-    background: '#F7F8FA'
+    // backgroundColor: '#F7F8FA'
   },
   moreIcon: {
     width: 16,
