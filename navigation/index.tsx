@@ -11,6 +11,7 @@ import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
 import Charities from '../screens/Charities';
 import CharityModal from '../screens/CharityModal';
+import DonateSuccess from '../screens/DonateSuccess';
 import TabOneScreen from '../screens/Home';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
@@ -40,6 +41,7 @@ function RootNavigator() {
       {/* <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} /> */}
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <Stack.Screen name="DonateSuccess" component={DonateSuccess} options={{ headerShown: false }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
         <Stack.Screen name="Charity" component={CharityModal} />

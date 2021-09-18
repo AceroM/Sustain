@@ -10,10 +10,11 @@ import { CharityType } from '../types/charity';
 type CharityModalProps = {
   route: {
     params: CharityType
-  }
+  },
+  navigation: any
 }
 
-export default function CharityModal({ route: { params } }: CharityModalProps) {
+export default function CharityModal({ route: { params }, navigation }: CharityModalProps) {
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState(null)
   const [items, setItems] = useState([
@@ -75,7 +76,7 @@ export default function CharityModal({ route: { params } }: CharityModalProps) {
         setValue={setValue}
         setItems={setItems}
       />
-      <Button onPress={handleSnackBar}>
+      <Button onPress={() => navigation.navigate('DonateSuccess', { donationAmount: 5, charity: "asdklfj" })}>
         <Text> Donate </Text>
       </Button>
       <Snackbar

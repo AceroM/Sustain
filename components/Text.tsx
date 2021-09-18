@@ -18,6 +18,7 @@ export default class Typography extends Component {
       size,
       transform,
       align,
+
       // styling
       regular,
       bold,
