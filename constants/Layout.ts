@@ -8,5 +8,6 @@ export default {
     width,
     height,
   },
+  spacing: 16,
   isSmallDevice: width < 375,
 };
