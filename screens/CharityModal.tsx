@@ -67,6 +67,7 @@ export default function CharityModal({ route: { params } }: CharityModalProps) {
         <Person name="Miguel" />
       </Div>
       <DropDownPicker
+        multiple={true}
         open={open}
         value={value}
         items={items}
