@@ -84,6 +84,14 @@ export default function CharityModal({ route: { params }, navigation }: CharityM
         bg={Colors.primary}
         color="white"
       />
+      <Text fontSize="4xl" fontWeight="bold">
+        Charity Description
+      </Text>
+      <Div mb={Layout.spacing} shadow="sm" p={Layout.spacing}>
+        <Text>
+          The Salvation Army is a Christian church and an international charitable organisation. The organisation reports a worldwide membership of over 1.7 million, consisting of soldiers, officers and adherents collectively known as Salvationists.
+        </Text>
+      </Div>
     </Div>
   )
 }

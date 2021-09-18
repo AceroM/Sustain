@@ -2,7 +2,7 @@ import Slider from '@react-native-community/slider';
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import { Div, Text } from "react-native-magnus";
+import { Div, Text, Toggle } from "react-native-magnus";
 import Divider from '../components/Divider';
 import Colors from '../constants/Colors';
 import { RootTabScreenProps } from "../types";
@@ -36,8 +36,8 @@ export default function Settings({ navigation }: RootTabScreenProps<'Settings'>)
 
       <Divider />
 
-      <Div>
-        <Text mb={10}>Budget</Text>
+      <Div my={30}>
+        <Text color="gray800" mb={10}>Budget</Text>
         <Slider
           minimumValue={0}
           maximumValue={1000}
@@ -45,7 +45,22 @@ export default function Settings({ navigation }: RootTabScreenProps<'Settings'>)
           maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
         />
       </Div>
-      {/* </ScrollView> */}
+      <Div my={30}>
+        <Text color="gray800" mb={10}>Monthly Cap</Text>
+        <Slider
+          minimumValue={0}
+          maximumValue={1000}
+          minimumTrackTintColor={Colors.secondary}
+          maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
+        />
+      </Div>
+
+
+      <Divider />
+
+      <Toggle
+
+      />
     </Div>
   )
 }
