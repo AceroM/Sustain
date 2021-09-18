@@ -1,30 +1,13 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import { Div, Text } from 'react-native-magnus';
+import { Button, Div } from 'react-native-magnus';
+import { RootTabScreenProps } from '../types';
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }: RootTabScreenProps<'Login'>) {
   return (
-    <SafeAreaView style={styles.container}>
-      <Div mx="xl" mt="md">
-        <Text
-          fontSize="lg"
-          fontWeight="bold"
-          textTransform="uppercase"
-          color="red400"
-          letterSpacing={2}
-          mt="lg"
-        >
-          Best Seller
-        </Text>
-      </Div>
-    </SafeAreaView>
+    <Div h="100%" bg="#101239" justifyContent="center" alignItems="center">
+      <Button onPress={() => navigation.navigate('Root')}>
+        Go To Home
+      </Button>
+    </Div>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
