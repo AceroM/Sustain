@@ -1,29 +1,117 @@
-import React from 'react';
-import { Div, Text } from 'react-native-magnus';
-import GradientButton from '../components/GradientButton';
-import { RootTabScreenProps } from '../types';
+// @ts-nocheck
 
-export default function LoginScreen({ navigation }: RootTabScreenProps<'Login'>) {
-  return (
+import React, { Component } from "react";
+import {
+  ActivityIndicator,
+  Keyboard,
+  KeyboardAvoidingView,
+  StyleSheet,
+  TouchableWithoutFeedback
+} from "react-native";
+import Block from '../components/Block';
+// import { Button, Block, Input, Text } from "../components";
+import Button from '../components/Button';
+import Input from '../components/Input';
+import Text from '../components/Text';
+import theme from "../constants/Green";
 
-    <Div h="100%" bg="white" justifyContent="center" alignItems="center">
-      {/* <MaskedView
-        style={{ height: 40 }}
-        maskElement={<Text fontSize="3xl" fontWeight="bold">Community</Text>}
-      >
-        <LinearGradient
-          locations={[0.4, 1.9]}
-          colors={[Colors.primary, Colors.secondary]}
-        >
-          <Text fontSize="3xl" opacity={0} fontWeight="bold">Community</Text>
-        </LinearGradient>
-      </MaskedView> */}
-      <Text fontSize="4xl" fontWeight="bold">
-        Help Sustain your community
-      </Text>
-      <GradientButton onPress={() => navigation.navigate('Root')} gradient>
-        Login
-      </GradientButton>
-    </Div>
-  )
+const VALID_EMAIL = "miguel.acero@google.com";
+const VALID_PASSWORD = "password";
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+)
+
+export default class Login extends Component {
+  state = {
+    email: VALID_EMAIL,
+    password: VALID_PASSWORD,
+    errors: [],
+    loading: false
+  };
+
+  handleLogin() {
+    const { navigation } = this.props;
+    const errors = [];
+
+    Keyboard.dismiss();
+    this.setState({ loading: true });
+
+    if (!errors.length) {
+      navigation.navigate("Root");
+    }
+  }
+
+  render() {
+    const { navigation } = this.props;
+    const { loading, errors } = this.state;
+    const hasErrors = key => (errors.includes(key) ? styles.hasErrors : null);
+
+    return (
+      <DismissKeyboard>
+        <KeyboardAvoidingView style={styles.login} behavior="padding">
+          <Block padding={[0, theme.sizes.base * 2]}>
+            <Text h1 bold>
+              Login
+            </Text>
+            <Block middle>
+              <Input
+                label="Email"
+                error={hasErrors("email")}
+                style={[styles.input, hasErrors("email")]}
+                defaultValue={this.state.email}
+                onChangeText={text => this.setState({ email: text })}
+              />
+              <Input
+                secure
+                label="Password"
+                error={hasErrors("password")}
+                style={[styles.input, hasErrors("password")]}
+                defaultValue={this.state.password}
+                onChangeText={text => this.setState({ password: text })}
+              />
+              <Button gradient onPress={() => this.handleLogin()}>
+                {loading ? (
+                  <ActivityIndicator size="small" color="white" />
+                ) : (
+                  <Text bold white center>
+                    Login
+                  </Text>
+                )}
+              </Button>
+
+              <Button onPress={() => navigation.navigate("Forgot")}>
+                <Text
+                  gray
+                  caption
+                  center
+                  style={{ textDecorationLine: "underline" }}
+                >
+                  Forgot your password?
+                </Text>
+              </Button>
+            </Block>
+          </Block>
+        </KeyboardAvoidingView>
+      </DismissKeyboard>
+    );
+  }
 }
+
+const styles = StyleSheet.create({
+  login: {
+    flex: 1,
+    justifyContent: "center"
+  },
+  input: {
+    borderRadius: 0,
+    borderWidth: 0,
+    borderBottomColor: theme.colors.gray2,
+    borderBottomWidth: StyleSheet.hairlineWidth
+  },
+  hasErrors: {
+    borderBottomColor: theme.colors.accent
+  }
+});

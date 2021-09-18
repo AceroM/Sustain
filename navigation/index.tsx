@@ -13,6 +13,7 @@ import Charities from '../screens/Charities';
 import CharityModal from '../screens/CharityModal';
 import DonateSuccess from '../screens/DonateSuccess';
 import TabOneScreen from '../screens/Home';
+import LoginScreen from '../screens/LoginScreen';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import Settings from '../screens/Settings';
@@ -38,7 +39,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator>
-      {/* <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} /> */}
+      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Screen name="DonateSuccess" component={DonateSuccess} options={{ headerShown: false }} />
