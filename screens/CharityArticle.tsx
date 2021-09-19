@@ -234,7 +234,7 @@ class CharityArticle extends Component {
       // return newDate
     }
 
-    const msg = `New Donation - Miguel is sending you 1 ${this.state.item} from 1580 Point W Blvd, Coppell, TX 75019 in ${calculateTime()} minutes!`
+    const msg = `New Donation - Miguel is sending you 1 ${this.state.actualItem} from 1580 Point W Blvd, Coppell, TX 75019 in ${calculateTime()} minutes!`
 
     return (
       <View style={[styles.flex, styles.white]}>
