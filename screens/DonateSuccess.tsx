@@ -8,6 +8,7 @@ import {
   StyleSheet,
   View
 } from "react-native";
+import { Text as MText } from 'react-native-magnus';
 import Block from '../components/Block';
 import Button from '../components/Button';
 import Text from '../components/Text';
@@ -26,9 +27,6 @@ export default class DonateSuccess extends Component {
 
   componentDidMount() {
     this.animation.play();
-    setTimeout(() => {
-      this.props.navigation.pop(2);
-    }, 3500);
     // Or set a specific startFrame and endFrame with:
     // this.animation.play(30, 120);
   }
@@ -54,12 +52,16 @@ export default class DonateSuccess extends Component {
   render() {
     const {
       charity,
-      donationAmount
+      itemType,
+      item,
+      qty,
+      date,
     } = this.props.route.params
+    console.log(`charity :>> `, charity)
 
     return (
       <KeyboardAvoidingView style={styles.login} behavior="padding">
-        <Block style={styles.block} padding={[0, theme.sizes.base * 2], 50}>
+        <Block style={styles.block} padding={[0, theme.sizes.base * 2], 20}>
           <View style={styles.animationContainer}>
             <Text h1 bold center>
               Success!
@@ -76,13 +78,13 @@ export default class DonateSuccess extends Component {
               source={require('../assets/lottie/donationSuccess.json')}
               loop={false}
             />
-            <Text h1 bold center
+            <Text h3
               style={{
-                marginTop: 50,
+                marginTop: 0,
                 marginBottom: 10
               }}
             >
-              You just donated {donationAmount} to {charity}!
+              You're scheduled to donate <MText fontSize={18} fontWeight="bold">{qty} {item}</MText> to <MText fontSize={18} fontWeight="bold">{charity.title}</MText> on <MText fontSize={18} textDecorationLine="underline">{new Date(date).toDateString()}</MText> at <MText fontSize={18} textDecorationStyle="dashed" textDecorationLine="underline">{new Date(date).toLocaleTimeString()}</MText>. Their address is: <MText fontSize={18} fontWeight="bold">{charity.address}</MText>. Their phone number is: <MText fontSize={18} fontWeight="bold">{charity.phone}</MText>.
             </Text>
             <Button gradient onPress={() => this.props.navigation.pop(2)}>
               <Text white center>

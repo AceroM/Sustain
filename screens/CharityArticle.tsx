@@ -2,12 +2,12 @@
 
 import React, { Component } from 'react';
 import { Animated, Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 import { Div, Icon, Input, Text as MText } from "react-native-magnus";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Button from '../components/Button';
-import CharityDropdown from '../components/CharityDropdown';
 import theme from "../constants/Green";
 import Layout from '../constants/Layout';
 
@@ -121,13 +121,15 @@ class CharityArticle extends Component {
     isDatePickerVisible: false,
     date: new Date(),
     time: new Date(),
+    actualItem: '',
+    items: [],
+    itemsOpen: false,
     item: '',
+    qtys: [],
+    qtysOpen: false,
     qty: '',
     desc: this.props.route.params.article.description.split('').slice(0, 69),
     setDesc: false
-  }
-
-  componentDidMount() {
   }
 
   showTimePicker = () => {
@@ -213,11 +215,17 @@ class CharityArticle extends Component {
       </Div>
     )
 
-    const calculateTime = () => {
+    const getDate = () => {
       const { date, time } = this.state
       date.setHours(time.getHours())
       date.setMinutes(time.getMinutes())
       date.setSeconds(time.getSeconds())
+
+      return date
+    }
+
+    const calculateTime = () => {
+      const date = getDate()
       const diffTime = Math.abs(new Date() - date)
       const diffHours = Math.ceil(diffTime / (1000 * 60))
 
@@ -292,41 +300,76 @@ class CharityArticle extends Component {
               </Text>
             </TouchableOpacity>
           </View>
-          <CharityDropdown
-            zIndex={10}
+          {/* <CharityDropdown
+            zIndex={9999}
             label="Donation Type"
             defaultItems={[
               { label: 'Clothes', value: 'apple' },
               { label: 'Food', value: 'applse' },
               { label: 'Money', value: 'banana' }
             ]}
-          />
-          <Div mt={15} flexDir="row">
-            <CharityDropdown
-              zIndex={100}
+          /> */}
+
+          <Div
+            zIndex={this.state.itemsOpen ? 9999 : 5000}
+            px={20} mt={0} flexDir="row">
+            <DropDownPicker
+
+              placeholder="Donation Type"
+              open={this.state.itemsOpen}
+              value={this.state.item}
+              items={[
+                { label: 'Food', value: 'Food' },
+                { label: 'Furniture', value: 'Furniture' },
+                { label: 'Clothes', value: 'Clothes' },
+                { label: 'Appliances', value: 'Appliances' },
+                { label: 'Hardware', value: 'Hardware' },
+                { label: 'Money', value: 'Money' },
+              ]}
+              setOpen={(open) => this.setState({ itemsOpen: open })}
+              setValue={(value) => {
+                this.setState({ item: value() })
+              }}
+            >
+              <Text mb={6}>Donation Type</Text>
+            </DropDownPicker>
+          </Div>
+
+          <Div zIndex={this.state.qtysOpen ? 9999 : 5000} mt={15} flexDir="row">
+            <Div
               w="32%"
               pr={16}
-              placeholder="Qty"
-              defaultItems={[
-                { label: '0', value: 'apple' },
-                { label: '1', value: 'applse' },
-                { label: '2', value: 'bana' },
-                { label: '3', value: 'baasdana' },
-                { label: '4', value: 'baaadsfna' },
-                { label: '5', value: 'baaasdfna' },
-                { label: '6', value: 'banansa' },
-                { label: '7', value: 'banasana' },
-                { label: '8', value: 'bandfaana' }
-              ]}
-            />
+              px={20}
+            >
+              <DropDownPicker
+                placeholder="Qty"
+                open={this.state.qtysOpen}
+                value={this.state.qty}
+                items={[
+                  { label: '0', value: '0' },
+                  { label: '1', value: '1' },
+                  { label: '2', value: '2' },
+                  { label: '3', value: '3' },
+                  { label: '4', value: '4' },
+                  { label: '5', value: '5' },
+                  { label: '6', value: '6' },
+                  { label: '7', value: '7' },
+                  { label: '8', value: '8' }
+                ]}
+                setOpen={(open) => this.setState({ qtysOpen: open })}
+                setValue={(value) => this.setState({ qty: value() })}
+              >
+                <Text mb={6}>Qty</Text>
+              </DropDownPicker>
+            </Div>
             <Input
               w="63%"
               py={17}
               mr={40}
               placeholder="Item"
               focusBorderColor="blue700"
-              value={this.state.item}
-              onChangeText={text => this.setState({ item: text })}
+              value={this.state.actualItem}
+              onChangeText={text => this.setState({ actualItem: text })}
             />
           </Div>
           <Div mt={16} ml={20} flexDir="row" w="100%" flexWrap="wrap">
@@ -334,16 +377,16 @@ class CharityArticle extends Component {
               this.setState({ isDatePickerVisible: true })
             }}>
               <Div w="50%" flexDir="row" mr={30}>
-                <MText mr={6} fontSize={16} fontWeight="bold">Date:</MText>
-                <MText fontSize={16} w={100} borderColor="black" borderWidth={1} rounded="md">{this.state.time.toLocaleDateString()}</MText>
+                <MText p={4} mr={6} fontSize={16} fontWeight="bold">Date:</MText>
+                <MText p={3} fontSize={16} w={100} borderColor="black" borderWidth={1} rounded="md">{this.state.time.toLocaleDateString()}</MText>
               </Div>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {
               this.setState({ isTimePickerVisible: true })
             }}>
               <Div w="50%" flexDir="row">
-                <MText mr={6} fontSize={16} fontWeight="bold">Time:</MText>
-                <MText fontSize={16} w={100} borderColor="black" borderWidth={1} rounded="md">{this.state.time.toLocaleTimeString()}</MText>
+                <MText p={4} mr={6} fontSize={16} fontWeight="bold">Time:</MText>
+                <MText p={3} fontSize={16} w={100} borderColor="black" borderWidth={1} rounded="md">{this.state.time.toLocaleTimeString()}</MText>
               </Div>
             </TouchableOpacity>
             <DateTimePickerModal
@@ -374,8 +417,11 @@ class CharityArticle extends Component {
                   console.log(`data :>> `, data)
                 })
               this.props.navigation.navigate('DonateSuccess', {
-                charity: article.title,
-                donationAmount: this.state.qty
+                charity: article,
+                itemType: this.state.item,
+                item: this.state.actualItem,
+                qty: this.state.qty,
+                date: getDate(),
               })
             }}>
               <Text style={styles.donate}>Donate</Text>
