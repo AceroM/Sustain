@@ -3,12 +3,16 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Div, Text, Toggle } from "react-native-magnus";
+import { useSelector } from 'react-redux';
 import Divider from '../components/Divider';
 import Colors from '../constants/Colors';
 import { RootTabScreenProps } from "../types";
 
 export default function Settings({ navigation }: RootTabScreenProps<'Settings'>) {
   const [name, setName] = useState('Leo')
+  // @ts-ignore
+  const state = useSelector(state => state)
+  console.log(`state :>> `, state)
 
   const Item = ({ label }: { label: string }) => (
     <Div mt={13}>

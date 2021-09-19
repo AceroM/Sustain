@@ -251,11 +251,13 @@ class Dashboard extends Component {
 
     const onScroll = (event) => {
       const scrollOffset = event.nativeEvent.contentOffset
-      const { lat, long } = charitiesList[Math.round(scrollOffset.x / 375)]
-      if (!lat || !long) {
-        alert('asf')
-      } else if (lat !== this.state.lat && long !== this.state.long) {
-        this.setState({ lat, long })
+      if (scrollOffset.x < ((charitiesList.length - 1) * 375)) {
+        const { lat, long } = charitiesList[Math.round(scrollOffset.x / 375)]
+        if (!lat || !long) {
+          alert('asf')
+        } else if (lat !== this.state.lat && long !== this.state.long) {
+          this.setState({ lat, long })
+        }
       }
       Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX } } }], { useNativeDriver: false })
     }
