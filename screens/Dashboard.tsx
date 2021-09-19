@@ -5,10 +5,11 @@ import React, { Component } from "react";
 import {
   Animated, Dimensions, FlatList, Image, ImageBackground, Modal, ScrollView, StyleSheet, TouchableOpacity, View
 } from "react-native";
-import { Div } from "react-native-magnus";
+import { Div, Text as MText } from "react-native-magnus";
 import MapView, { Marker } from 'react-native-maps';
 import * as Icon from "react-native-vector-icons";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+// import Octicons from 'react-native-vector-icons/Octicons';
 import { NavigationActions } from "react-navigation";
 import Badge from '../components/Badge';
 import Block, { styles as blockStyles } from '../components/Block';
@@ -129,7 +130,7 @@ class Dashboard extends Component {
             style={styles.charityIcon}
             resizeMode="contain"
           />
-          {/* <Text
+          <Text
             title
             transform="capitalize"
             // accent={drive.status === "bad"}
@@ -137,12 +138,12 @@ class Dashboard extends Component {
             primary
             height={22}
           >
-            {charity.charityName}
+            hello
           </Text>
- */}
-          {/* <Text transform="capitalize" spacing={0.7}>
+
+          <Text transform="capitalize" spacing={0.7}>
             {charity.description ? charity.description : charity.mission.substring(0, 10) + "..."}
-          </Text> */}
+          </Text>
         </Card>
       </TouchableOpacity>
     );
@@ -184,7 +185,7 @@ class Dashboard extends Component {
     );
   }
 
-  renderDestination = item => {
+  renderDestination = (item, isRecommended = false) => {
     const { navigation } = this.props;
 
     if (item.id === '-1') {
@@ -206,11 +207,27 @@ class Dashboard extends Component {
           style={[styles.flex, styles.destination, styles.shadow]}
           imageStyle={{ borderRadius: theme.sizes.radius }}
           source={item.source}
-        />
+        >
+          <View style={{ flex: 0 }}>
+            {/* <Image source={{ uri: item.user.avatar }} style={styles.avatar} /> */}
+          </View>
+          <View style={[styles.column, { flex: 2, paddingHorizontal: theme.sizes.padding / 2 }]}>
+            {isRecommended && (
+              <Div position="absolute" left={-25} top={-10} bg="red700" w={120} justifyContent="flex-end" alignItems="flex-end" pr={8} roundedTopRight={10} roundedBottomRight={10}>
+                <Text style={{ color: theme.colors.white, fontWeight: 'bold' }}>Recommended</Text>
+              </Div>
+            )}
+          </View>
+        </ImageBackground>
         <View style={[styles.column, styles.destinationInfo, styles.shadow]}>
-          <Text style={{ fontSize: theme.sizes.font * 1.25, fontWeight: '500', paddingBottom: 8, }}>
-            {item.title}
-          </Text>
+          <Div flexDir="row">
+            <Text style={{ fontSize: theme.sizes.font * 1.25, fontWeight: '500', paddingBottom: 8, }}>
+              {item.title}
+            </Text>
+            <Div ml={10} borderColor="gray400" borderWidth={1} rounded="lg" h={20} px={10}>
+              <MText color="gray600">Kids</MText>
+            </Div>
+          </Div>
           <View style={[styles.row, { justifyContent: 'space-between', alignItems: 'flex-end', }]}>
             <Text style={{ color: theme.colors.caption }}>
               {item.description.split('').slice(0, 50)}...
