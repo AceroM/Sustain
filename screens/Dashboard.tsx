@@ -411,7 +411,7 @@ class Dashboard extends Component {
     const { navigation } = this.props;
 
     return (
-      <TouchableOpacity style={styles.dCard} activeOpacity={0.8} onPress={() => navigation.navigate('Article', { article: item })}>
+      <TouchableOpacity style={styles.dCard} activeOpacity={0.8} onPress={() => navigation.navigate('CharityArticle', { article: item })}>
         <ImageBackground
           style={[styles.flex, styles.destination, styles.shadow]}
           imageStyle={{ borderRadius: theme.sizes.radius }}
@@ -563,6 +563,7 @@ class Dashboard extends Component {
                   <TouchableOpacity
                     onPress={() => navigation.navigate("Transactions", { t })}
                     activeOpacity={0.7}
+                    key={t + i}
                   >
                     <Card shadow key={i * 1000}>
                       <Block style={{ marginBottom: theme.sizes.base }}>

@@ -6,10 +6,14 @@ const colors = {
   black: "#323643",
   white: "#FFFFFF",
   gray: "#9DA3B4",
-  gray2: "#C5CCD6"
+  caption: '#BCCCD4',
+  gray2: "#C5CCD6",
+  active: "#007BFA",
 };
 
 const sizes = {
+  margin: 36,
+
   // global sizes
   base: 16,
   font: 14,

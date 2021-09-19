@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
 import Charities from '../screens/Charities';
+import CharityArticle from '../screens/CharityArticle';
 import CharityModal from '../screens/CharityModal';
 import TabOneScreen from '../screens/Dashboard';
 import DonateSuccess from '../screens/DonateSuccess';
@@ -45,6 +46,7 @@ function RootNavigator() {
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Screen name="DonateSuccess" component={DonateSuccess} options={{ headerShown: false }} />
+      <Stack.Screen name="CharityArticle" component={CharityArticle} options={{ headerShown: false }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
         <Stack.Screen name="Charity" component={CharityModal} />
