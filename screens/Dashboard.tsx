@@ -17,123 +17,109 @@ import Card, { styles as cardStyles } from '../components/Card';
 import Text from '../components/Text';
 import theme from "../constants/Green";
 import Layout from "../constants/Layout";
+import charities from "../constants/mock/charities";
 const { width } = Dimensions.get("window");
 
 const mocks = [
   {
     id: 1,
-    user: {
-      name: 'Lelia Chavez',
-      avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-    },
-    saved: true,
-    location: 'Santorini, Greece',
-    temperature: 34,
-    title: 'Santorini',
-    description: 'Santorini is one of the Cyclades islands in the Aegean Sea. It was devastated by a volcanic eruption in the 16th century BC, forever shaping its rugged landscape. The whitewashed, cubiform houses of its 2 principal towns, Fira and Oia, cling to cliffs above an underwater caldera (crater). They overlook the sea, small islands to the west and beaches made up of black, red and white lava pebbles.',
-    rating: 4.3,
-    reviews: 3212,
-    preview: 'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
-    ]
+    title: 'Kids Matter International',
+    category: 'Food',
+    address: '535 S Nolen Dr #300, Southlake, TX 76092',
+    website: 'https://www.kidsmatterinternational.org/',
+    description: 'Kids Matter International is passionate about helping children who live in poverty by providing basic needs such as new clothing and shoes, books and backpacks. We believe that each child is precious and should be treated with dignity, respect, and given hope for a better future.',
+    source: require('../assets/images/Charities/kids_matter_international.png'),
+    recommended: true
   },
   {
     id: 2,
-    user: {
-      name: 'Lelia Chavez',
-      avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-    },
-    saved: false,
-    location: 'Loutraki, Greece',
-    temperature: 34,
-    title: 'Loutraki',
-    description: 'This attractive small town, 80 kilometers from Athens',
-    rating: 4.6,
-    reviews: 3212,
-    preview: 'https://images.unsplash.com/photo-1458906931852-47d88574a008?auto=format&fit=crop&w=800&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1458906931852-47d88574a008?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1446903572544-8888a0e60687?auto=format&fit=crop&w=800&q=80',
-    ]
+    title: 'UYM Charities',
+    category: 'Food',
+    address: '2100 W Northwest Hwy #114, Grapevine, TX 76051',
+    website: 'https://www.uymcharities.org/',
+    description: 'Founded in 1980, UYM broadened its focus on direct service provision and administration through the years to include the development of strategic fundraising and philanthropic partnerships. These partnerships now include Charter Churches. In helping to build Charter Churches, UYM can better leverage available resources to reach more people in need. Developing and promoting charter churches—each with unique missions to help others—UYM can reach more people in need across the nation. ',
+    source: require('../assets/images/Charities/uym_charities.png'),
+    recommended: true
   },
   {
-    id: 3,
-    user: {
-      name: 'Lelia Chavez',
-      avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-    },
-    saved: true,
-    location: 'Santorini, Greece',
-    temperature: 34,
-    title: 'Santorini',
-    description: 'Santorini - Description',
-    rating: 3.2,
-    reviews: 3212,
-    preview: 'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
-    ]
+    id: "3",
+    title: 'Arms of Hope',
+    category: 'Food',
+    address: '8000 Walton Blvd, Irving, TX 75063',
+    website: 'https://armsofhope.org/',
+    description: 'Arms of Hope is a 501(c)(3) not-for-profit Christian care organization that assists children and single-mother families in need. Arms of Hope’s facilities include Medina Children’s Home (60 miles northwest of San Antonio) and Boles Children’s Home (40 miles northeast of Dallas). The facilities have over 150 years combined experience in comprehensive residential care programs for children. Arms of Hope also reaches disadvantaged children in their own neighborhoods in various communities with its Outreach Ministry programs.',
+    source: require('../assets/images/Charities/arms_of_hope.png'),
+    recommended: true
   },
   {
-    id: 4,
-    user: {
-      name: 'Lelia Chavez',
-      avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-    },
-    location: 'Loutraki, Greece',
-    temperature: 34,
-    title: 'Loutraki',
-    description: 'This attractive small town, 80 kilometers from Athens',
-    rating: 5,
-    reviews: 3212,
-    preview: 'https://images.unsplash.com/photo-1458906931852-47d88574a008?auto=format&fit=crop&w=800&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1458906931852-47d88574a008?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1446903572544-8888a0e60687?auto=format&fit=crop&w=800&q=80',
-    ]
-  },
-]
-
-const myCharities = [
-  {
-    id: 1,
-    charityName: "Team Trees",
-    mission:
-      "More than 800,000 people joined #TeamTrees by raising more than $20 million to plant 20 million trees around the world. Wondering where those trees are being planted? Check out the locations for the first trees below.",
-    icon: require("../assets/images/teamtrees.jpg"),
-    image:
-      "https://scontent-lga3-1.cdninstagram.com/v/t51.2885-15/e35/72634507_1430880343747588_3676343023645376761_n.jpg?_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_cat=104&_nc_ohc=Gg21Cxj1KRMAX_A4qua&oh=35579bce4e0b02b01993f5e1c917ea55&oe=5E8E6F5E",
-    websiteURL: "https://teamtrees.org/",
-    description: "Championed by Mr B...",
+    id: "4",
+    title: 'A Continuous Charity',
+    category: 'Food',
+    address: '9901 Valley Ranch Pkwy E, Irving, TX 75063',
+    website: 'https://acceducate.org/',
+    description: 'Our goal is to promote the spiritual and intellectual development of Muslims throughout North America by providing interest-free loans for higher education. By doing this, we hope to bring about a generation of graduates that will have a strong Muslim identity and be well-versed in their fields, using both for the benefit of mankind.',
+    source: require('../assets/images/Charities/a_continuous_charity.png'),
+    recommended: false
   },
   {
-    id: 2,
-    charityName: "Direct Relief",
-    websiteURL: "https://www.directrelief.org/",
-    mission:
-      "Direct Relief is a humanitarian aid organization, active in all 50 states and more than 80 countries, with a mission to improve the health and lives of people affected by poverty or emergencies – without regard to politics, religion, or ability to pay.\n",
-    icon: require("../assets/images/corona.png"),
-    image:
-      "https://i1.wp.com/www.directrelief.org/wp-content/uploads/2020/01/0131_2-scaled-e1580492018941.jpg?resize=800%2C450px&ssl=1",
-    description: "Corona Virus ef...",
+    id: "5",
+    title: 'Rahbar Foundation',
+    category: 'Food',
+    address: '2436 Kent Dr, Irving, TX 75062',
+    website: 'http://www.rahbarfoundation.org/',
+    description: 'The Rahbar Foundation is dedicated to providing charitable assistance in the field of education, healthcare, hunger, emergency relief and other social welfare services to alleviate the poverty of underprivileged people around the globe with major focus on India. Every dollar contributed by donors is used as efficiently as possible to maximize the impact. Our due diligence process of tracking, monitoring, and allocating donations to our projects on the ground catalyzes the society and uplift some of the most impoverished communities. We carefully monitor our administrative and fundraising expenditures to optimize efficiency and ensure control and transparency. All of your generous donations are tax deductible.',
+    source: require('../assets/images/Charities/rahbar_foundations.png'),
+    recommended: true
   },
   {
-    id: 3,
-    charityName: "Red Cross",
-    mission:
-      "The American Red Cross prevents and alleviates human suffering in the face of emergencies by mobilizing the power of volunteers and the generosity of donors.",
-    icon: require("../assets/images/redcross.jpg"),
-    websiteURL: "https://www.redcross.org/donate/donation.html/",
-    image:
-      "https://www.redcross.org/content/dam/redcross/uncategorized/12/Vol-Banner-volunteer-looking-at-fire-1534x1198.jpg.transform/768/q70/feature/image.jpeg",
-    description: "Hospitals around the worl...",
+    id: "6",
+    title: 'Cloud 9 Charities',
+    category: 'Food',
+    address: '2221 Justin Rd #119-116, Flower Mound, TX 75028',
+    website: 'http://cloud9charities.org/',
+    description: 'Cloud 9 Charities is an organization of local leaders and business owners with a passion for giving back to our community and working to make it a better place for us all. One hundred percent of the net proceeds from our community events funds Bedtime Rescue.',
+    source: require('../assets/images/Charities/cloud_9_charities.png'),
+    recommended: true
+  },
+  {
+    id: "7",
+    title: 'Ronald McDonald House of Dallas',
+    category: 'Food',
+    address: '4707 Bengal St, Dallas, TX 75235',
+    website: 'https://rmhdallas.org/',
+    description: 'The House contains multiple playrooms for kids of all ages and interests, a library, media room, craft room, chapel, meditation garden, and outdoor play areas. Two large communal kitchens and dining room provide opportunities for the families to share the evening meal, which is provided 3 times a day by community volunteers, or to prepare their own food if they choose.',
+    source: require('../assets/images/Charities/ronald_mcdonald_house.png'),
+    recommended: true
+  },
+  {
+    id: "8",
+    title: 'Solace Charities, Inc.',
+    category: 'Food',
+    address: '1724 Flowers Dr, Carrollton, TX 75007',
+    website: 'https://www.kidsmatterinternational.org/',
+    description: 'Solace Charities aims to raise awareness and mobilize financial resources for the work carried out by Solace, a voluntary organization headquartered in Thrissur, India. Beginning 2007, Solace has been providing much needed financial, medical, moral and social support for families with kids suffering from terminal illness, with the support of benevolent individuals and corporations around the world.',
+    source: require('../assets/images/Charities/solace_charities.png'),
+    recommended: true
+  },
+  {
+    id: "9",
+    title: 'Grand Prairie United Charities',
+    category: 'Food',
+    address: '1417 Densman St, Grand Prairie, TX 75051',
+    website: 'https://gpuc.org/',
+    description: 'Grand Prairie United Charities was founded to assist the needs of the community. Today, the agency is still going strong, feeding over 35,000 individuals, families, elderly and homeless children and assisting these residents with the basic, unmet needs such as food, utility assistance, rental/mortgage/shelter assistance, and an endless source of information and referrals. Our services help keep these adults, children and elderly from spiraling into hopeless situations.',
+    source: require('../assets/images/Charities/grand_prairie.png'),
+    recommended: true
+  },
+  {
+    id: "10",
+    title: 'Hope Supply Co.',
+    category: 'Food',
+    address: '10555 Newkirk St, Dallas, TX 75220',
+    website: 'https://hopesupplyco.org/',
+    description: `Hope Supply Co., formerly known as Captain Hope's Kids, was founded in 1989 as The Hope Foundation for the Homeless, serving as a clearinghouse of donated resources. During the early 1990's, mothers with babies and children became the fastest growing segment of the homeless population. Because of this alarming trend, the Board of Directors voted to focus the mission on meeting the needs of the most vulnerable in our community, homeless and at-risk children. In 2015, we re-branded to Hope Supply Co. to better reflect our commitment to providing hope for children.`,
+    source: require('../assets/images/Charities/hope_supply_co.png'),
+    recommended: true
   },
 ];
 
@@ -415,26 +401,9 @@ class Dashboard extends Component {
         <ImageBackground
           style={[styles.flex, styles.destination, styles.shadow]}
           imageStyle={{ borderRadius: theme.sizes.radius }}
-          source={{ uri: item.preview }}
+          source={item.source}
         >
           <View style={[styles.row, { justifyContent: 'space-between' }]}>
-            <View style={{ flex: 0 }}>
-              <Image source={{ uri: item.user.avatar }} style={styles.avatar} />
-            </View>
-            <View style={[styles.column, { flex: 2, paddingHorizontal: theme.sizes.padding / 2 }]}>
-              <Text style={{ color: theme.colors.white, fontWeight: 'bold' }}>{item.user.name}</Text>
-              <Text style={{ color: theme.colors.white }}>
-                <Octicons
-                  name="location"
-                  size={theme.sizes.font * 0.8}
-                  color={theme.colors.white}
-                />
-                <Text style={{ color: 'white' }}> {item.location}</Text>
-              </Text>
-            </View>
-            <View style={{ flex: 0, justifyContent: 'center', alignItems: 'flex-end', }}>
-              <Text style={styles.rating}>{item.rating}</Text>
-            </View>
           </View>
         </ImageBackground>
         <View style={[styles.column, styles.destinationInfo, styles.shadow]}>
@@ -480,8 +449,8 @@ class Dashboard extends Component {
           </TouchableOpacity>
         </View>
         <Block horizontal>{this.renderDollarCard(navigation)}</Block>
-        {this.renderCC()}
-        <Block top style={{ paddingHorizontal: theme.sizes.padding }}>
+        {/* {this.renderCC()} */}
+        {/* <Block top style={{ paddingHorizontal: theme.sizes.padding }}>
           <View
             style={{
               flex: 1,
@@ -519,7 +488,7 @@ class Dashboard extends Component {
               renderItem={({ item }) => this.renderCharities(item, navigation)}
             />
           </Block>
-        </Block>
+        </Block> */}
         <ScrollView
           style={{ marginBottom: 5, paddingHorizontal: theme.sizes.padding }}
         >
@@ -556,7 +525,7 @@ class Dashboard extends Component {
               </Marker>
             </MapView>
           </Block>
-          <Block>
+          {/* <Block>
             <Block style={{ paddingTop: 10 }}>
               {transactions.map((t, i) => {
                 return (
@@ -628,26 +597,28 @@ class Dashboard extends Component {
                 );
               })}
             </Block>
-          </Block>
+          </Block> */}
         </ScrollView>
         {this.renderDonationMessage()}
-        <View style={[styles.column, styles.destinations]}>
-          <FlatList
-            horizontal
-            pagingEnabled
-            scrollEnabled
-            showsHorizontalScrollIndicator={false}
-            decelerationRate={0}
-            scrollEventThrottle={16}
-            snapToAlignment="center"
-            style={{ overflow: 'visible', height: 280 }}
-            data={mocks}
-            keyExtractor={(item, index) => `${item.id}`}
-            onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX } } }])}
-            renderItem={({ item }) => this.renderDestination(item)}
-          />
-          {/* {this.renderDots()} */}
-        </View>
+        <Block>
+          <View style={[styles.column, styles.destinations]}>
+            <FlatList
+              horizontal
+              pagingEnabled
+              scrollEnabled
+              showsHorizontalScrollIndicator={false}
+              decelerationRate={0}
+              scrollEventThrottle={16}
+              snapToAlignment="center"
+              style={{ overflow: 'visible', height: 280 }}
+              data={mocks}
+              keyExtractor={(item, index) => `${item.id}`}
+              onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX } } }])}
+              renderItem={({ item }) => this.renderDestination(item)}
+            />
+            {/* {this.renderDots()} */}
+          </View>
+        </Block>
       </ScrollView>
     );
   }
