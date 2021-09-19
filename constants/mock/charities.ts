@@ -1,4 +1,3 @@
-import { CharityType } from "../../types/charity";
 
 const charitiesList = [
   {
@@ -124,6 +123,18 @@ const charitiesList = [
     category: 'Family',
     address: '10555 Newkirk St, Dallas, TX 75220',
     phone: '(214) 630-5765',
+    lat: '32.8684716',
+    long: '-96.9108058',
+    website: 'https://hopesupplyco.org/',
+    description: `Hope Supply Co., formerly known as Captain Hope's Kids, was founded in 1989 as The Hope Foundation for the Homeless, serving as a clearinghouse of donated resources. During the early 1990's, mothers with babies and children became the fastest growing segment of the homeless population. Because of this alarming trend, the Board of Directors voted to focus the mission on meeting the needs of the most vulnerable in our community, homeless and at-risk children. In 2015, we re-branded to Hope Supply Co. to better reflect our commitment to providing hope for children.`,
+    source: require('../../assets/images/Charities/hope_supply_co.png'),
+    recommended: true
+  },
+  {
+    id: "-1",
+    title: 'Hope Supply Co.',
+    category: 'Food',
+    address: '10555 Newkirk St, Dallas, TX 75220',
     lat: '32.8684716',
     long: '-96.9108058',
     website: 'https://hopesupplyco.org/',

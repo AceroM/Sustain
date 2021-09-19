@@ -195,7 +195,7 @@ class Welcome extends Component {
           {
             nativeEvent: { contentOffset: { x: this.scrollX } }
           }
-        ])}
+        ], { useNativeDriver: false })}
       />
     );
   }
