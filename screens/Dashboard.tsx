@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { Div, Text as MText } from "react-native-magnus";
 import MapView, { Marker } from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
 import * as Icon from "react-native-vector-icons";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import Octicons from 'react-native-vector-icons/Octicons';
@@ -33,6 +34,7 @@ const profile = {
 
 class Dashboard extends Component {
   scrollX = new Animated.Value(100);
+  map = null
   state = {
     lat: 32.926987,
     long: -96.998866,
@@ -325,6 +327,7 @@ class Dashboard extends Component {
           </Text>
           <Block style={{ width: '100%', height: 200 }}>
             <MapView
+              ref={ref => { this.map = ref }}
               style={{ marginVertical: 20, flex: 1, borderRadius: 30 }}
               region={{
                 latitude: lat,
@@ -353,10 +356,10 @@ class Dashboard extends Component {
                   </TouchableOpacity>
                 </Badge>
               </Marker>
-              {charitiesList.map((charity) => {
+              {charitiesList.map((charity, idx) => {
                 return (
                   <Marker
-                    id={charity.lat}
+                    key={charity.lat + idx}
                     rotation={-15}
                     anchor={{ x: 0.5, y: 0.5 }}
                     coordinate={{ latitude: parseFloat(charity.lat), longitude: parseFloat(charity.long) }}
@@ -369,6 +372,13 @@ class Dashboard extends Component {
                   </Marker>
                 )
               })}
+              <MapViewDirections
+                origin={{ latitude: parseFloat(32.926987), longitude: parseFloat(-96.998866) }}
+                destination={{ latitude: parseFloat(lat), longitude: parseFloat(long) }}
+                strokeWidth={3}
+                apikey="AIzaSyBqoTgyqFmFUpOn3neyDu5-1WinqTjRfmk"
+                strokeColor="purple"
+              />
             </MapView>
           </Block>
           {/* <Block>
