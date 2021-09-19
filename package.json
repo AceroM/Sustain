@@ -1,6 +1,9 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
+    "db-up": "docker-compose up -d",
+    "db-nuke": "docker-compose down --volumes --remove-orphans",
+    "db-migrate-dev": "yarn prisma migrate dev",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -70,6 +73,7 @@
     "@types/react-native": "~0.63.2",
     "@types/react-native-vector-icons": "^6.4.8",
     "jest-expo": "~41.0.0-beta.0",
+    "prisma": "^3.0.2",
     "typescript": "~4.0.0"
   },
   "private": true

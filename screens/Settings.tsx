@@ -202,6 +202,17 @@ class Settings extends Component {
             <Block style={styles.sliders}>
               <Block margin={[10, 0]}>
                 <Text gray2 style={{ marginBottom: 10 }}>
+                  Search Range
+                </Text>
+                {this.renderSlider(this.budgetValues, "budgetValuesIndex")}
+                <Text caption gray right>
+                  Miles
+                </Text>
+              </Block>
+            </Block>
+            <Block style={styles.sliders}>
+              <Block margin={[10, 0]}>
+                <Text gray2 style={{ marginBottom: 10 }}>
                   Notification Range
                 </Text>
                 {this.renderSlider(this.budgetValues, "budgetValuesIndex")}
