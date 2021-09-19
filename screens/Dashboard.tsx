@@ -8,7 +8,6 @@ import {
 import MapView, { Marker } from 'react-native-maps';
 import * as Icon from "react-native-vector-icons";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Octicons from 'react-native-vector-icons/Octicons';
 import { NavigationActions } from "react-navigation";
 import Badge from '../components/Badge';
 import Block, { styles as blockStyles } from '../components/Block';
@@ -16,8 +15,6 @@ import Button from '../components/Button';
 import Card, { styles as cardStyles } from '../components/Card';
 import Text from '../components/Text';
 import theme from "../constants/Green";
-import Layout from "../constants/Layout";
-import charities from "../constants/mock/charities";
 const { width } = Dimensions.get("window");
 
 const mocks = [
@@ -380,11 +377,11 @@ class Dashboard extends Component {
               </Badge>
             </Block>
             <Block middle>
-              <Text size={theme.sizes.base} spacing={0.4} medium white>
-                Active Credit Card, ending in
-              </Text>
               <Text size={20} spacing={0.4} bold white>
-                askdfjlaksdjfkl
+                $12.00
+              </Text>
+              <Text size={theme.sizes.base} spacing={0.4} medium white>
+                Total Donations
               </Text>
             </Block>
           </LinearGradient>
@@ -449,7 +446,7 @@ class Dashboard extends Component {
           </TouchableOpacity>
         </View>
         <Block horizontal>{this.renderDollarCard(navigation)}</Block>
-        {/* {this.renderCC()} */}
+        {this.renderCC()}
         {/* <Block top style={{ paddingHorizontal: theme.sizes.padding }}>
           <View
             style={{
@@ -497,7 +494,7 @@ class Dashboard extends Component {
           </Text>
           <Block style={{ width: '100%', height: 350 }}>
             <MapView
-              style={{ marginTop: 10, flex: 1, borderRadius: 30 }}
+              style={{ marginVertical: 20, flex: 1, borderRadius: 30 }}
               region={{
                 latitude: 40.73978092263567,
                 longitude: -73.87333547273988,
@@ -696,7 +693,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dCard: {
-    marginLeft: Layout.spacing * 2,
+    // marginLeft: Layout.spacing * 2,
   },
   destination: {
     width: width - (theme.sizes.padding * 2),
