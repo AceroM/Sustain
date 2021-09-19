@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Div, Text, Toggle } from "react-native-magnus";
 import { useSelector } from 'react-redux';
+import { trpc } from '../api/trpc';
 import Divider from '../components/Divider';
 import Colors from '../constants/Colors';
 import { RootTabScreenProps } from "../types";
@@ -13,6 +14,10 @@ export default function Settings({ navigation }: RootTabScreenProps<'Settings'>)
   // @ts-ignore
   const state = useSelector(state => state)
   console.log(`state :>> `, state)
+  const posts = trpc.useQuery(['post.all'], {
+    refetchInterval: 3000,
+  });
+  console.log(`posts :>> `, posts)
 
   const Item = ({ label }: { label: string }) => (
     <Div mt={13}>

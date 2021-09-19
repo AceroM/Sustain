@@ -20,7 +20,7 @@ import Card, { styles as cardStyles } from '../components/Card';
 import Text from '../components/Text';
 import theme from "../constants/Green";
 import charitiesList from "../constants/mock/charities";
-import { addCategory } from '../store/recommended';
+import { getRecommendedThunk, storeRecommendedThunk } from '../store/recommended';
 const { width } = Dimensions.get("window");
 
 const profile = {
@@ -52,9 +52,7 @@ class Dashboard extends Component {
   };
 
   async componentDidMount() {
-    // const charities = charitiesList
-    // charities.push({})
-    this.setState({ showModal: false });
+    this.setState({ showModal: false, charities });
   }
 
   showModal = () => {
@@ -153,8 +151,6 @@ class Dashboard extends Component {
     );
   };
 
-
-
   renderCC() {
     return (
       <TouchableOpacity onPress={() => this.setState({ showCC: true })}>
@@ -209,7 +205,10 @@ class Dashboard extends Component {
     }
 
     return (
-      <TouchableOpacity style={styles.dCard} activeOpacity={0.8} onPress={() => navigation.navigate('CharityArticle', { article: item })}>
+      <TouchableOpacity style={styles.dCard} activeOpacity={0.8} onPress={() => {
+        this.props.storeRecommended(item.category)
+        navigation.navigate('CharityArticle', { article: item })
+      }}>
         <ImageBackground
           style={[styles.flex, styles.destination, styles.shadow]}
           imageStyle={{ borderRadius: theme.sizes.radius }}
@@ -232,7 +231,7 @@ class Dashboard extends Component {
               {item.title}
             </Text>
             <Div ml={10} borderColor="gray400" borderWidth={1} rounded="lg" h={20} px={10}>
-              <MText color="gray600">Kids</MText>
+              <MText color="gray600">{item.category}</MText>
             </Div>
           </Div>
           <View style={[styles.row, { justifyContent: 'space-between', alignItems: 'flex-end', }]}>
@@ -250,11 +249,13 @@ class Dashboard extends Component {
     )
   }
 
+  /*
+  
+  */
   render() {
-    console.log(`addCategory :>> `, addCategory)
-    console.log(`this.props :>> `, this.props)
-    const { categories, profile, navigation, charities } = this.props;
+    const { recommended, profile, navigation, charities } = this.props;
     const { lat, long } = this.state
+    console.log(`recommended :>> `, recommended)
 
     const onScroll = (event) => {
       const scrollOffset = event.nativeEvent.contentOffset
@@ -476,10 +477,15 @@ class Dashboard extends Component {
               scrollEventThrottle={16}
               // snapToAlignment="center"
               style={{ overflow: 'visible', height: 280 }}
-              data={charitiesList}
+              data={charitiesList.slice().filter(charity => {
+                if (recommended.currentRecommended !== '') {
+                  return recommended.currentRecommended === charity.category
+                }
+                return true
+              })}
               keyExtractor={(item, index) => `${item.id}`}
               onScroll={onScroll}
-              renderItem={({ item }) => this.renderDestination(item)}
+              renderItem={({ item }) => this.renderDestination(item, recommended.currentRecommended === item.category)}
             />
             {/* {this.renderDots()} */}
           </View>
@@ -498,6 +504,23 @@ const mapDispatchToProps = () => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+Dashboard.defaultProps = { profile };
+
+
+const mapState = state => {
+  return {
+    recommended: state.recommended
+  };
+};
+
+const mapDispatch = dispatch => {
+  return {
+    getRecommended: () => dispatch(getRecommendedThunk()),
+    storeRecommended: (category) => dispatch(storeRecommendedThunk(category))
+  };
+};
+
+export default connect(mapState, mapDispatch)(Dashboard);
 
 Dashboard.defaultProps = { profile };
 
