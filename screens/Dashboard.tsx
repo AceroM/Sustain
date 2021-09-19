@@ -52,7 +52,7 @@ class Dashboard extends Component {
   };
 
   async componentDidMount() {
-    this.setState({ showModal: false, charities });
+    this.setState({ showModal: false });
   }
 
   showModal = () => {
@@ -119,10 +119,10 @@ class Dashboard extends Component {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          navigation.navigate("Charity", {
+          navigation.navigate("CharityArticle", {
             charity,
-            charityImage: charity.source,
-            resizeMode: "cover"
+            // charityImage: charity.source,
+            // resizeMode: "cover"
           });
         }}
       >
@@ -255,7 +255,6 @@ class Dashboard extends Component {
   render() {
     const { recommended, profile, navigation, charities } = this.props;
     const { lat, long } = this.state
-    console.log(`recommended :>> `, recommended)
 
     const onScroll = (event) => {
       const scrollOffset = event.nativeEvent.contentOffset

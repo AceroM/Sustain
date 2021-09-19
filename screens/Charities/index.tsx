@@ -7,7 +7,6 @@ import charities from '../../constants/mock/charities';
 import { RootTabScreenProps } from '../../types';
 import { CharityType } from '../../types/charity';
 
-
 export default function Charities({ navigation }: RootTabScreenProps<'Home'>) {
   const [searchInput, setSearchInput] = React.useState('')
   const filtered = charities.filter(charity => charity.title.includes(searchInput)).map(c => ({
@@ -133,7 +132,14 @@ export default function Charities({ navigation }: RootTabScreenProps<'Home'>) {
           ListHeaderComponent={Search}
           data={filtered}
           renderItem={({ item }: { item: CharityType }) => (
-            <TouchableOpacity onPress={() => navigation.navigate('Charity', item)}>
+            <TouchableOpacity onPress={() => {
+              console.log(`item :>> `, item)
+              // @ts-ignore
+              navigation.navigate('CharityArticle', {
+                // @ts-ignore
+                article: item,
+              })
+            }}>
               <CharityCard {...item} />
             </TouchableOpacity>
           )}

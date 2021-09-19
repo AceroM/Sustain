@@ -124,6 +124,10 @@ class CharityArticle extends Component {
     setDesc: false
   }
 
+  componentDidMount() {
+    console.log(`this.props :>> `, this.props)
+  }
+
   renderDots = () => {
     const { article } = this.props.route.params
     const dotPosition = Animated.divide(this.scrollX, width);

@@ -30,12 +30,8 @@ export default recommendedReducer = (state = {
     case GET_RECOMMENDED:
       return state;
     case STORE_RECOMMENDED:
-      console.log(`state :>> `, state)
-      console.log(`action :>> `, action)
-      console.log(`state.categories :>> `, state.categories)
       const temp = state.categories
       temp.push(action.payload)
-      console.log(`temp :>> `, temp)
       let sortedFreq = ''
       if (temp.length > 0) {
         freq = temp.reduce((acc, val) => {
