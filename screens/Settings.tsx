@@ -1,87 +1,272 @@
-import Slider from '@react-native-community/slider';
-import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
-import { Div, Text } from "react-native-magnus";
-import { useSelector } from 'react-redux';
-import { trpc } from '../api/trpc';
+// @ts-nocheck
+
+import React, { Component } from "react";
+import {
+  Image, ScrollView, StyleSheet, TextInput
+} from "react-native";
+// @ts-ignore
+import Slider from "react-native-slider";
+import { NavigationActions } from "react-navigation";
+import Block from '../components/Block';
+import Button from '../components/Button';
 import Divider from '../components/Divider';
-import Input from '../components/Input';
-import Colors from '../constants/Colors';
-import { RootTabScreenProps } from "../types";
+import Text from '../components/Text';
+import theme from "../constants/Green";
 
-export default function Settings({ navigation }: RootTabScreenProps<'Settings'>) {
-  const [name, setName] = useState('Leo')
-  // @ts-ignore
-  const state = useSelector(state => state)
-  console.log(`state :>> `, state)
-  const posts = trpc.useQuery(['post.all'], {
-    refetchInterval: 3000,
-  });
-  console.log(`posts :>> `, posts)
+const profile = {
+  username: "miguel.acero",
+  password: 'password123',
+  location: "United States",
+  email: "miguel.acero@google.com",
+  avatar: require("../assets/images/avatar.jpg"),
+  budget: 1000,
+  monthly_cap: 5000,
+  notifications: true,
+  newsletter: false
+};
 
-  const Item = ({ label }: { label: string }) => (
-    <Div mt={13}>
-      <Div>
-        <Div>
-          <Text>{label}</Text>
-          <Div flexDir="row" justifyContent="space-between">
-            <TextInput style={{ width: "80%" }} defaultValue={name} onChangeText={text => setName(text)} />
-            <Text fontSize="lg" fontWeight="500" color="green300">Edit</Text>
-          </Div>
-        </Div>
-      </Div>
-    </Div>
-  )
 
-  return (
-    <Div bg="white" p={32}>
-      <Div flexDir="row" alignItems="center" justifyContent="space-between">
-        <Text fontSize="lg">
-          Settings yo
-        </Text>
-      </Div>
-      {/* <ScrollView showsHorizontalScrollIndicator={false}> */}
-      <Item label="name" />
+class Settings extends Component {
+  state = {
+    budgetValuesIndex: 2,
+    monthly: 50,
+    notifications: true,
+    newsletter: false,
+    editing: null,
+    profile: {},
+    isModalVisible: false
+  };
 
-      <Divider />
+  budgetValues = [0.05, 0.1, 0.25, 0.5, 1.0];
 
-      <Div my={30}>
-        <Text color="gray800" mb={10}>Budget</Text>
-        <Slider
-          minimumValue={0}
-          maximumValue={1000}
-          minimumTrackTintColor={Colors.secondary}
-          maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
+  componentDidMount() {
+    // @ts-ignore
+    this.setState({ profile: this.props.profile });
+  }
+
+  handleEdit(name, text) {
+    const { profile } = this.state;
+    profile[name] = text;
+
+    this.setState({ profile });
+  }
+
+  toggleEdit(name) {
+    const { editing } = this.state;
+    this.setState({ editing: !editing ? name : null });
+  }
+
+  showModal = () => {
+    this.setState({
+      isModalVisible: true
+    });
+  };
+
+  hideModal = () => {
+    this.setState({
+      isModalVisible: false
+    });
+  };
+
+  renderEdit(name) {
+    const { profile, editing } = this.state;
+
+    if (editing === name) {
+      return (
+        <TextInput
+          defaultValue={profile[name]}
+          onChangeText={text => this.handleEdit([name], text)}
         />
-      </Div>
-      <Div my={30}>
-        <Text color="gray800" mb={10}>Monthly Cap</Text>
-        <Slider
-          minimumValue={0}
-          maximumValue={1000}
-          minimumTrackTintColor={Colors.secondary}
-          maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
-        />
-      </Div>
+      );
+    }
 
+    if (profile) {
+      return <Text bold>{name === 'password' ? '●●●●●●●●●●' : profile[name]}</Text>
+    }
+  }
 
-      <Divider />
+  renderSlider = (optionsArray, stateKey) => {
+    return (
+      <Slider
+        minimumValue={0}
+        maximumValue={optionsArray.length - 1}
+        step={1}
+        value={this.state[stateKey]}
+        onValueChange={value => this.setState({ [stateKey]: value })}
+        style={{ height: 19 }}
+        thumbStyle={styles.thumb}
+        trackStyle={{ height: 6, borderRadius: 6 }}
+        minimumTrackTintColor={theme.colors.secondary}
+        maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
+      />
+    );
+  };
 
-      <Input />
+  render() {
+    const { profile, editing } = this.state;
+    const { navigation } = this.props;
 
-      {/* <Toggle /> */}
-    </Div>
-  )
+    return (
+      <React.Fragment>
+        <Block style={{ backgroundColor: 'white' }}>
+          <Block flex={false} row center space="between" style={styles.header}>
+            <Text h1 bold>
+              Settings
+            </Text>
+            <Button>
+              <Image source={profile.avatar} style={styles.avatar} />
+            </Button>
+          </Block>
+
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <Block style={styles.inputs}>
+              <Block
+                row
+                space="between"
+                margin={[10, 0]}
+                style={styles.inputRow}
+              >
+                <Block>
+                  <Text gray2 style={{ marginBottom: 10 }}>
+                    Username
+                  </Text>
+                  {this.renderEdit("username")}
+                </Block>
+                <Text
+                  medium
+                  secondary
+                  onPress={() => this.toggleEdit("username")}
+                >
+                  {editing === "username" ? "Save" : "Edit"}
+                </Text>
+              </Block>
+
+              <Block
+                row
+                space="between"
+                margin={[10, 0]}
+                style={styles.inputRow}
+              >
+                <Block>
+                  <Text gray2 style={{ marginBottom: 10 }}>
+                    Password
+                  </Text>
+                  {this.renderEdit("password")}
+                </Block>
+                <Text
+                  medium
+                  secondary
+                  onPress={() => this.toggleEdit("password")}
+                >
+                  {editing === "password" ? "Save" : "Edit"}
+                </Text>
+              </Block>
+
+              <Block
+                row
+                space="between"
+                margin={[10, 0]}
+                style={styles.inputRow}
+              >
+                <Block>
+                  <Text gray2 style={{ marginBottom: 10 }}>
+                    Location
+                  </Text>
+                  {this.renderEdit("location")}
+                </Block>
+                <Text
+                  medium
+                  secondary
+                  onPress={() => this.toggleEdit("location")}
+                >
+                  {editing === "location" ? "Save" : "Edit"}
+                </Text>
+              </Block>
+              <Block
+                row
+                space="between"
+                margin={[10, 0]}
+                style={styles.inputRow}
+              >
+                <Block>
+                  <Text gray2 style={{ marginBottom: 10 }}>
+                    E-mail
+                  </Text>
+                  <Text bold>{profile.email}</Text>
+                </Block>
+              </Block>
+            </Block>
+
+            <Divider margin={[theme.sizes.base, theme.sizes.base * 2]} />
+
+            <Block style={styles.sliders}>
+              <Block margin={[10, 0]}>
+                <Text gray2 style={{ marginBottom: 10 }}>
+                  Notification Range
+                </Text>
+                {this.renderSlider(this.budgetValues, "budgetValuesIndex")}
+                <Text caption gray right>
+                  Miles
+                </Text>
+              </Block>
+            </Block>
+            <Divider />
+            <Block horizontal>
+              <Button
+                gradient
+                onPress={() =>
+                  navigation.navigate(
+                    "MainStack",
+                    {},
+                    NavigationActions.navigate({ routeName: "Welcome" })
+                  )
+                }
+              >
+                <Text white center>
+                  Sign Out
+                </Text>
+              </Button>
+            </Block>
+          </ScrollView>
+        </Block>
+      </React.Fragment>
+    );
+  }
 }
 
+Settings.defaultProps = { profile: profile };
+
+export default Settings;
+
 const styles = StyleSheet.create({
+  header: {
+    paddingHorizontal: theme.sizes.base * 2
+  },
+  avatar: {
+    height: theme.sizes.base * 2.2,
+    width: theme.sizes.base * 2.2,
+    borderRadius: theme.sizes.padding
+  },
+  inputs: {
+    marginTop: theme.sizes.base * 0.7,
+    paddingHorizontal: theme.sizes.base * 2
+  },
+  inputRow: {
+    alignItems: "flex-end"
+  },
+  sliders: {
+    marginTop: theme.sizes.base * 0.7,
+    paddingHorizontal: theme.sizes.base * 2
+  },
   thumb: {
-    width: 16,
-    height: 16,
-    borderRadius: 16,
+    width: theme.sizes.base,
+    height: theme.sizes.base,
+    borderRadius: theme.sizes.base,
     borderColor: "white",
     borderWidth: 3,
-    backgroundColor: Colors.secondary
+    backgroundColor: theme.colors.secondary
+  },
+  toggles: {
+    paddingHorizontal: theme.sizes.base * 2
   }
-})
+});
