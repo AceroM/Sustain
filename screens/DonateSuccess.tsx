@@ -86,12 +86,12 @@ export default class DonateSuccess extends Component {
             >
               You're scheduled to donate <MText fontSize={18} fontWeight="bold">{qty} {item}</MText> to <MText fontSize={18} fontWeight="bold">{charity.title}</MText> on <MText fontSize={18} textDecorationLine="underline">{new Date(date).toDateString()}</MText> at <MText fontSize={18} textDecorationStyle="dashed" textDecorationLine="underline">{new Date(date).toLocaleTimeString()}</MText>. Their address is: <MText fontSize={18} fontWeight="bold">{charity.address}</MText>. Their phone number is: <MText fontSize={18} fontWeight="bold">{charity.phone}</MText>.
             </Text>
-            <Button gradient onPress={() => this.props.navigation.pop(2)}>
-              <Text white center>
-                Return to Charity
-              </Text>
-            </Button>
           </View>
+          <Button gradient onPress={() => this.props.navigation.pop(2)}>
+            <Text white center>
+              Return to Charity
+            </Text>
+          </Button>
         </Block>
       </KeyboardAvoidingView>
     );
@@ -119,7 +119,8 @@ const styles = StyleSheet.create({
   },
   animationContainer: {
     width: '100%',
-    height: '100%',
-    justifyContent: "space-evenly",
+    height: '65%',
+    alignItems: 'center',
+    justifyContent: "center",
   }
 });
