@@ -167,8 +167,8 @@ class Welcome extends Component {
     return (
       <FlatList
         horizontal
-        pagingEnabled
-        scrollEnabled
+        // pagingEnabled
+        // scrollEnabled
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={126}
         snapToAlignment="center"
@@ -233,15 +233,14 @@ class Welcome extends Component {
       <Block>
         <Block center bottom flex={0.4}>
           <Text h1 center bold>
-            Make a difference,
-          </Text>
-          <Text h1 center bold>
-            a little
+            Create a more
             <Text h1 primary>
               {" "}
-              Change
+              sustainable
             </Text>
-            &nbsp;at a time.
+          </Text>
+          <Text h1 center bold>
+            &nbsp;community, together.
           </Text>
           {/* <Text h3 gray2 style={{ marginTop: theme.sizes.padding / 2 }}>
             Enjoy the experience.
@@ -252,7 +251,7 @@ class Welcome extends Component {
           {this.renderSteps()}
         </Block>
         <Block middle flex={0.5} margin={[0, theme.sizes.padding * 2]}>
-          <Button gradient onPress={() => navigation.navigate("Root")}>
+          <Button gradient onPress={() => navigation.navigate("Login")}>
             <Text center semibold white>
               Login
             </Text>
@@ -276,9 +275,9 @@ class Welcome extends Component {
 
 Welcome.defaultProps = {
   illustrations: [
-    { id: 1, source: require("../assets/images/donate_1.png") },
-    { id: 2, source: require("../assets/images/donate_2.png") },
-    { id: 3, source: require("../assets/images/donate_3.png") }
+    { id: 1, source: require("../assets/images/donate1.png") },
+    { id: 2, source: require("../assets/images/donate2.png") },
+    // { id: 3, source: require("../assets/images/donate_3.png") }
   ]
 };
 

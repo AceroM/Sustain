@@ -15,7 +15,7 @@ import CharityDonate from '../screens/CharityDonate';
 import CharityModal from '../screens/CharityModal';
 import TabOneScreen from '../screens/Dashboard';
 import DonateSuccess from '../screens/DonateSuccess';
-// import LoginScreen from '../screens/LoginScreen';
+import LoginScreen from '../screens/LoginScreen';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import Settings from '../screens/Settings';
@@ -44,7 +44,8 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Login" component={Welcome} options={{ headerShown: false }} />
+      <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
+      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Screen name="DonateSuccess" component={DonateSuccess} options={{ headerShown: false }} />

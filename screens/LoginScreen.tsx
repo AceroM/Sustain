@@ -82,7 +82,7 @@ export default class Login extends Component {
                 )}
               </Button>
 
-              <Button onPress={() => navigation.navigate("Forgot")}>
+              <Button style={{ backgroundColor: "transparent" }} onPress={() => navigation.navigate("Forgot")}>
                 <Text
                   gray
                   caption
