@@ -71,7 +71,6 @@ export default function Charities({ navigation }: RootTabScreenProps<'Home'>) {
             <Tag fontWeight="bold" bg="#B2F5EA" color="#234E52">
               {category}
             </Tag>
-
           </Div>
           <Div>
             <Text>{description}</Text>
