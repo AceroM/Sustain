@@ -17,6 +17,7 @@
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
     "@prisma/client": "^3.0.2",
+    "@react-native-community/datetimepicker": "^3.5.2",
     "@react-native-community/slider": "^4.1.7",
     "@react-native-masked-view/masked-view": "^0.2.6",
     "@react-navigation/bottom-tabs": "^6.0.5",
@@ -53,6 +54,7 @@
     "react-native-maps": "^0.29.3",
     "react-native-maps-directions": "^1.8.0",
     "react-native-modal": "^11.3.1",
+    "react-native-modal-datetime-picker": "^11.0.0",
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
@@ -64,6 +66,7 @@
     "react-query": "^3.24.2",
     "react-redux": "^7.2.5",
     "superjson": "^1.7.5",
+    "twilio": "^3.67.2",
     "yarn": "^1.22.11",
     "zod": "^3.8.2"
   },

@@ -230,7 +230,7 @@ class Welcome extends Component {
     const { navigation } = this.props;
 
     return (
-      <ImageBackground source={require('../assets/giving.jpeg')} style={{ width: '100%', height: '100%' }}>
+      <ImageBackground source={require('../assets/city.png')} style={{ width: '100%', height: '100%' }}>
         <Block center bottom flex={0.4}>
           <Text white h1 center bold>
             Create a more

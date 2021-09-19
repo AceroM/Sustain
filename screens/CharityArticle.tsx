@@ -2,7 +2,8 @@
 
 import React, { Component } from 'react';
 import { Animated, Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Div, Icon, Input } from "react-native-magnus";
+import { Div, Icon, Input, Text as MText } from "react-native-magnus";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Button from '../components/Button';
@@ -43,7 +44,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   header: {
-    // backgroundColor: 'transparent',
     zIndex: 10,
     paddingHorizontal: theme.sizes.padding,
     paddingTop: theme.sizes.padding,
@@ -61,12 +61,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   content: {
-    // backgroundColor: theme.colors.active,
-    // borderTopLeftRadius: theme.sizes.border,
-    // borderTopRightRadius: theme.sizes.border,
   },
   contentHeader: {
     padding: theme.sizes.padding,
+    paddingBottom: 16,
     backgroundColor: theme.colors.white,
     borderTopLeftRadius: theme.sizes.radius,
     borderTopRightRadius: theme.sizes.radius,
@@ -119,13 +117,43 @@ class CharityArticle extends Component {
   scrollX = new Animated.Value(0);
 
   state = {
+    isTimePickerVisible: false,
+    isDatePickerVisible: false,
+    date: new Date(),
+    time: new Date(),
+    item: '',
     qty: '',
-    desc: this.props.route.params.article.description.split('').slice(0, 100),
+    desc: this.props.route.params.article.description.split('').slice(0, 69),
     setDesc: false
   }
 
   componentDidMount() {
-    console.log(`this.props :>> `, this.props)
+  }
+
+  showTimePicker = () => {
+    this.setState({ isTimePickerVisible: true });
+  }
+
+  showDatePicker = () => {
+    this.setState({ isDatePickerVisible: true });
+  }
+
+  hideTimePicker = () => {
+    this.setState({ isTimePickerVisible: false })
+  }
+
+  hideDatePicker = () => {
+    this.setState({ isDatePickerVisible: false })
+  }
+
+  handleTimeConfirm = (time) => {
+    this.setState({ time })
+    this.hideTimePicker()
+  }
+
+  handleDateConfirm = (date) => {
+    this.setState({ date })
+    this.hideDatePicker();
   }
 
   renderDots = () => {
@@ -185,14 +213,27 @@ class CharityArticle extends Component {
       </Div>
     )
 
+    const calculateTime = () => {
+      const { date, time } = this.state
+      date.setHours(time.getHours())
+      date.setMinutes(time.getMinutes())
+      date.setSeconds(time.getSeconds())
+      const diffTime = Math.abs(new Date() - date)
+      const diffHours = Math.ceil(diffTime / (1000 * 60))
+
+      return diffHours
+      // const newDate = new Date() - date
+      // return newDate
+    }
+
     return (
       <View style={[styles.flex, styles.white]}>
         <View style={[styles.flex, styles.row, styles.header]}>
           <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
-            <FontAwesome name="chevron-left" color={theme.colors.white} size={theme.sizes.font * 1} />
+            <FontAwesome name="chevron-left" color={theme.colors.black} size={theme.sizes.font * 1} />
           </TouchableOpacity>
           <TouchableOpacity>
-            <MaterialIcons name="more-horiz" color={theme.colors.white} size={theme.sizes.font * 1.5} />
+            <MaterialIcons name="more-horiz" color={theme.colors.black} size={theme.sizes.font * 1.5} />
           </TouchableOpacity>
         </View>
         <View style={[styles.flex]}>
@@ -242,20 +283,15 @@ class CharityArticle extends Component {
             <Text style={{ fontWeight: 'bold', color: theme.colors.active, marginVertical: 12 }}>
               {article.website}
             </Text>
-            <TouchableOpacity onPress={() => this.setState({ desc: !this.state.setDesc ? article.description : article.description.split('').slice(0, 100), setDesc: !this.state.setDesc })}>
+            <TouchableOpacity onPress={() => this.setState({ desc: !this.state.setDesc ? article.description : article.description.split('').slice(0, 69), setDesc: !this.state.setDesc })}>
               <Text style={styles.description}>
                 {this.state.desc}{this.state.setDesc ? '' : '....'}
                 <Text style={{ color: theme.colors.active }}> Read {!this.state.setDesc ? 'More' : 'Less'} </Text>
               </Text>
             </TouchableOpacity>
           </View>
-          {/* <SummaryCard
-            icon='heart'
-            color='#ebfdee'
-            value='58'
-            description='Kids saved from poverty'
-          /> */}
           <CharityDropdown
+            zIndex={10}
             label="Donation Type"
             defaultItems={[
               { label: 'Clothes', value: 'apple' },
@@ -265,13 +301,20 @@ class CharityArticle extends Component {
           />
           <Div mt={15} flexDir="row">
             <CharityDropdown
+              zIndex={100}
               w="32%"
               pr={16}
               placeholder="Qty"
               defaultItems={[
                 { label: '0', value: 'apple' },
                 { label: '1', value: 'applse' },
-                { label: '2', value: 'banana' }
+                { label: '2', value: 'bana' },
+                { label: '3', value: 'baasdana' },
+                { label: '4', value: 'baaadsfna' },
+                { label: '5', value: 'baaasdfna' },
+                { label: '6', value: 'banansa' },
+                { label: '7', value: 'banasana' },
+                { label: '8', value: 'bandfaana' }
               ]}
             />
             <Input
@@ -280,15 +323,61 @@ class CharityArticle extends Component {
               mr={40}
               placeholder="Item"
               focusBorderColor="blue700"
-              value={this.state.qty}
-              onChangeText={text => this.setState({ qty: text })}
+              value={this.state.item}
+              onChangeText={text => this.setState({ item: text })}
             />
           </Div>
-          <TouchableOpacity style={styles.dCenter} >
-            <Button style={styles.donateContainer} gradient onPress={() => this.props.navigation.navigate('DonateSuccess', {
-              charity: article.title,
-              donationAmount: this.state.qty
-            })}>
+          <Div mt={16} ml={20} flexDir="row" w="100%" flexWrap="wrap">
+            <TouchableOpacity onPress={() => {
+              this.setState({ isDatePickerVisible: true })
+            }}>
+              <Div w="50%" flexDir="row" mr={30}>
+                <MText mr={6} fontSize={16} fontWeight="bold">Date:</MText>
+                <MText fontSize={16} w={100} borderColor="black" borderWidth={1} rounded="md">{this.state.time.toLocaleDateString()}</MText>
+              </Div>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+              this.setState({ isTimePickerVisible: true })
+            }}>
+              <Div w="50%" flexDir="row">
+                <MText mr={6} fontSize={16} fontWeight="bold">Time:</MText>
+                <MText fontSize={16} w={100} borderColor="black" borderWidth={1} rounded="md">{this.state.time.toLocaleTimeString()}</MText>
+              </Div>
+            </TouchableOpacity>
+            <DateTimePickerModal
+              isVisible={this.state.isTimePickerVisible}
+              mode="time"
+              onConfirm={this.handleTimeConfirm}
+              onCancel={this.hideTimePicker}
+            />
+            <DateTimePickerModal
+              isVisible={this.state.isDatePickerVisible}
+              mode="date"
+              onConfirm={this.handleDateConfirm}
+              onCancel={this.hideDatePicker}
+            />
+          </Div>
+          <TouchableOpacity style={styles.dCenter}>
+            <Button style={styles.donateContainer} gradient onPress={() => {
+              // send twilio api request here
+              console.log('sending request');
+              fetch('https://pinnacle-6257.twil.io/text', {
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                method: 'POST', body: {
+                  Body: `New Donation - Miguel is sending you 1 ${this.state.qty} from 1580 Point W Blvd, Coppell, TX 75019 in ${calculateTime()} minutes!`
+                },
+              })
+                .then(res => res.json())
+                .then(data => {
+                  console.log(`data :>> `, data)
+                })
+              this.props.navigation.navigate('DonateSuccess', {
+                charity: article.title,
+                donationAmount: this.state.qty
+              })
+            }}>
               <Text style={styles.donate}>Donate</Text>
             </Button>
           </TouchableOpacity>

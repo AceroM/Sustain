@@ -11,7 +11,7 @@ import Navigation from './navigation';
 import store from './store';
 
 const { manifest }: { manifest: any } = Constants;
-const localhost = `http://${manifest.debuggerHost?.split(':').shift()}:3000`;
+const localhost = `http://${manifest.debuggerHost?.split(':').shift()}:19000`;
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

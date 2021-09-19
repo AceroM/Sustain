@@ -154,17 +154,17 @@ class Dashboard extends Component {
   renderCC() {
     return (
       <TouchableOpacity onPress={() => this.setState({ showCC: true })}>
-        <Block horizontal>
+        <Block horizontal >
           <LinearGradient
             end={{ x: 1, y: 0 }}
-            style={[blockStyles.row, cardStyles.card, styles.awards]}
+            style={[blockStyles.row, cardStyles.card, styles.awards, { paddingVertical: 20 }]}
             colors={["#2BDA8E", "#41cc66"]}
           >
             <Block middle flex={0.4}>
               <Badge color={rgba(theme.colors.white, "0.2")} size={74}>
                 <Badge color={rgba(theme.colors.white, "0.2")} size={52}>
                   <Icon.FontAwesome
-                    name="google-wallet"
+                    name="line-chart"
                     color="white"
                     size={30}
                   />
@@ -172,16 +172,17 @@ class Dashboard extends Component {
               </Badge>
             </Block>
             <Block middle>
-              <Text size={20} spacing={0.4} bold white>
-                $12.00
+              <Text style={{ marginBottom: 4 }} size={20} spacing={0.4} bold white>
+                You're on a roll!
               </Text>
               <Text size={theme.sizes.base} spacing={0.4} medium white>
-                Total Donations
+                You’ve donated a total of 20 times to 7 different charities
+
               </Text>
             </Block>
           </LinearGradient>
         </Block>
-      </TouchableOpacity>
+      </TouchableOpacity >
     );
   }
 
@@ -332,7 +333,7 @@ class Dashboard extends Component {
           style={{ marginBottom: 5, paddingHorizontal: theme.sizes.padding }}
         >
           <Text spacing={0.4} transform="uppercase">
-            Nearby Charities
+            Recommended Charities
           </Text>
           <Block style={{ width: '100%', height: 200 }}>
             <MapView

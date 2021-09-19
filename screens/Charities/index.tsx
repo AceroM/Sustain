@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FlatList, ImageSourcePropType, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Avatar, Button, Div, Fab, Icon, Image, Input, Text } from 'react-native-magnus';
+import { Button, Div, Fab, Icon, Image, Input, Text } from 'react-native-magnus';
 import Layout from '../../constants/Layout';
 import charities from '../../constants/mock/charities';
 import { RootTabScreenProps } from '../../types';
@@ -19,13 +19,12 @@ export default function Charities({ navigation }: RootTabScreenProps<'Home'>) {
 
   const Search = () => (
     <Div>
-      <Div flexDir="row" justifyContent="space-between">
+      <Div alignItems="center" flexDir="row" justifyContent="space-between">
         <Text fontWeight="bold" fontSize="4xl">
           Explore
         </Text>
-        <Avatar bg="red300" size={32}>
-          M
-        </Avatar>
+
+        <Image h={50} w={50} rounded={999} source={require("../../assets/images/avatar.jpg")} />
       </Div>
       <Input
         suffix={
@@ -39,7 +38,7 @@ export default function Charities({ navigation }: RootTabScreenProps<'Home'>) {
         p="md"
         fontSize="lg"
         borderWidth={0}
-        placeholder="Search your doge homies"
+        placeholder="Search for a charity"
         value={searchInput}
         onChangeText={text => searchFilterFunc(text)}
         mt="lg"
@@ -125,7 +124,7 @@ export default function Charities({ navigation }: RootTabScreenProps<'Home'>) {
   )
 
   return (
-    <Div p={25}>
+    <Div bg="white" p={25}>
       <AddCard />
       <Div>
         <FlatList
@@ -133,7 +132,6 @@ export default function Charities({ navigation }: RootTabScreenProps<'Home'>) {
           data={filtered}
           renderItem={({ item }: { item: CharityType }) => (
             <TouchableOpacity onPress={() => {
-              console.log(`item :>> `, item)
               // @ts-ignore
               navigation.navigate('CharityArticle', {
                 // @ts-ignore
