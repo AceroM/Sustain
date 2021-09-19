@@ -1,8 +1,5 @@
-/**
- * If you are not familiar with React Navigation, refer to the "Fundamentals" guide:
- * https://reactnavigation.org/docs/getting-started
- *
- */
+// @ts-nocheck
+
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
@@ -16,6 +13,7 @@ import CharityModal from '../screens/CharityModal';
 import TabOneScreen from '../screens/Dashboard';
 import DonateSuccess from '../screens/DonateSuccess';
 import LoginScreen from '../screens/LoginScreen';
+import SignUpScreen from '../screens/SignUpScreen';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import Settings from '../screens/Settings';
@@ -46,6 +44,7 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Screen name="DonateSuccess" component={DonateSuccess} options={{ headerShown: false }} />
