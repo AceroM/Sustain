@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import {
   Animated, Dimensions, FlatList, Image, ImageBackground, Modal, ScrollView, StyleSheet, TouchableOpacity, View
 } from "react-native";
+import { Div } from "react-native-magnus";
 import MapView, { Marker } from 'react-native-maps';
 import * as Icon from "react-native-vector-icons";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -30,8 +31,10 @@ const profile = {
 };
 
 class Dashboard extends Component {
-  scrollX = new Animated.Value(0);
+  scrollX = new Animated.Value(100);
   state = {
+    lat: 32.926987,
+    long: -96.998866,
     showModal: false,
     showCC: false,
     showTransaction: false,
@@ -44,6 +47,8 @@ class Dashboard extends Component {
   };
 
   async componentDidMount() {
+    // const charities = charitiesList
+    // charities.push({})
     this.setState({ showModal: false });
   }
 
@@ -182,16 +187,26 @@ class Dashboard extends Component {
   renderDestination = item => {
     const { navigation } = this.props;
 
+    if (item.id === '-1') {
+      return (
+        <Div w={200} justifyContent="center">
+          <Text>No More Charities!</Text>
+          <Text>For more, Click{' '}
+            <TouchableOpacity onPress={() => navigation.navigate('Charities')}>
+              <Text style={{ fontWeight: 'bold', color: theme.colors.active, position: 'absolute', bottom: -3.5 }}>Here</Text>
+            </TouchableOpacity>
+          </Text>
+        </Div>
+      )
+    }
+
     return (
       <TouchableOpacity style={styles.dCard} activeOpacity={0.8} onPress={() => navigation.navigate('CharityArticle', { article: item })}>
         <ImageBackground
           style={[styles.flex, styles.destination, styles.shadow]}
           imageStyle={{ borderRadius: theme.sizes.radius }}
           source={item.source}
-        >
-          <View style={[styles.row, { justifyContent: 'space-between' }]}>
-          </View>
-        </ImageBackground>
+        />
         <View style={[styles.column, styles.destinationInfo, styles.shadow]}>
           <Text style={{ fontSize: theme.sizes.font * 1.25, fontWeight: '500', paddingBottom: 8, }}>
             {item.title}
@@ -213,6 +228,18 @@ class Dashboard extends Component {
 
   render() {
     const { profile, navigation, charities } = this.props;
+    const { lat, long } = this.state
+
+    const onScroll = (event) => {
+      const scrollOffset = event.nativeEvent.contentOffset
+      const { lat, long } = charitiesList[Math.round(scrollOffset.x / 375)]
+      if (!lat || !long) {
+        alert('asf')
+      } else if (lat !== this.state.lat && long !== this.state.long) {
+        this.setState({ lat, long })
+      }
+      Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX } } }], { useNativeDriver: false })
+    }
 
     return (
       <ScrollView style={{ alignSelf: "stretch", marginTop: 15, backgroundColor: "white" }}>
@@ -277,14 +304,14 @@ class Dashboard extends Component {
           style={{ marginBottom: 5, paddingHorizontal: theme.sizes.padding }}
         >
           <Text spacing={0.4} transform="uppercase">
-            Recent Transactions
+            Nearby Charities
           </Text>
-          <Block style={{ width: '100%', height: 350 }}>
+          <Block style={{ width: '100%', height: 200 }}>
             <MapView
               style={{ marginVertical: 20, flex: 1, borderRadius: 30 }}
               region={{
-                latitude: 32.926987,
-                longitude: -96.998866,
+                latitude: lat,
+                longitude: long,
                 latitudeDelta: 0.06,
                 longitudeDelta: 0.06,
               }}
@@ -312,6 +339,7 @@ class Dashboard extends Component {
               {charitiesList.map((charity) => {
                 return (
                   <Marker
+                    id={charity.lat}
                     rotation={-15}
                     anchor={{ x: 0.5, y: 0.5 }}
                     coordinate={{ latitude: parseFloat(charity.lat), longitude: parseFloat(charity.long) }}
@@ -406,16 +434,15 @@ class Dashboard extends Component {
           <View style={[styles.column, styles.destinations]}>
             <FlatList
               horizontal
-              pagingEnabled
               scrollEnabled
               showsHorizontalScrollIndicator={false}
               decelerationRate={0}
               scrollEventThrottle={16}
-              snapToAlignment="center"
+              // snapToAlignment="center"
               style={{ overflow: 'visible', height: 280 }}
               data={charitiesList}
               keyExtractor={(item, index) => `${item.id}`}
-              onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX } } }])}
+              onScroll={onScroll}
               renderItem={({ item }) => this.renderDestination(item)}
             />
             {/* {this.renderDots()} */}
@@ -497,12 +524,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dCard: {
-    // marginLeft: Layout.spacing * 2,
   },
   destination: {
     width: width - (theme.sizes.padding * 2),
     height: width * 0.6,
-    marginHorizontal: theme.sizes.margin,
+    marginHorizontal: theme.sizes.margin / 2,
     paddingHorizontal: theme.sizes.padding,
     paddingVertical: theme.sizes.padding * 0.66,
     borderRadius: theme.sizes.radius,

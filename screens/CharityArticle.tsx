@@ -2,10 +2,11 @@
 
 import React, { Component } from 'react';
 import { Animated, Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Div, Icon } from "react-native-magnus";
+import { Div, Icon, Input } from "react-native-magnus";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Button from '../components/Button';
+import CharityDropdown from '../components/CharityDropdown';
 import theme from "../constants/Green";
 import Layout from '../constants/Layout';
 
@@ -13,8 +14,7 @@ const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   dCenter: {
-    paddingHorizontal: 5,
-    marginTop: 50,
+    marginTop: 40,
     marginLeft: 5,
     flex: 1,
     width: "100%",
@@ -119,7 +119,8 @@ class CharityArticle extends Component {
   scrollX = new Animated.Value(0);
 
   state = {
-    desc: this.props.route.params.article.description.split('').slice(0, 180),
+    qty: '',
+    desc: this.props.route.params.article.description.split('').slice(0, 100),
     setDesc: false
   }
 
@@ -199,7 +200,7 @@ class CharityArticle extends Component {
             decelerationRate={0}
             scrollEventThrottle={16}
             snapToAlignment="center"
-            onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX } } }])}
+            onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX } } }], { useNativeDriver: false })}
           >
             <Image
               source={article.source}
@@ -237,7 +238,7 @@ class CharityArticle extends Component {
             <Text style={{ fontWeight: 'bold', color: theme.colors.active, marginVertical: 12 }}>
               {article.website}
             </Text>
-            <TouchableOpacity onPress={() => this.setState({ desc: !this.state.setDesc ? article.description : article.description.split('').slice(0, 180), setDesc: !this.state.setDesc })}>
+            <TouchableOpacity onPress={() => this.setState({ desc: !this.state.setDesc ? article.description : article.description.split('').slice(0, 100), setDesc: !this.state.setDesc })}>
               <Text style={styles.description}>
                 {this.state.desc}{this.state.setDesc ? '' : '....'}
                 <Text style={{ color: theme.colors.active }}> Read {!this.state.setDesc ? 'More' : 'Less'} </Text>
@@ -250,8 +251,40 @@ class CharityArticle extends Component {
             value='58'
             description='Kids saved from poverty'
           /> */}
+          <CharityDropdown
+            label="Donation Type"
+            defaultItems={[
+              { label: 'Clothes', value: 'apple' },
+              { label: 'Food', value: 'applse' },
+              { label: 'Money', value: 'banana' }
+            ]}
+          />
+          <Div mt={15} flexDir="row">
+            <CharityDropdown
+              w="32%"
+              pr={16}
+              placeholder="Qty"
+              defaultItems={[
+                { label: '0', value: 'apple' },
+                { label: '1', value: 'applse' },
+                { label: '2', value: 'banana' }
+              ]}
+            />
+            <Input
+              w="63%"
+              py={17}
+              mr={40}
+              placeholder="Item"
+              focusBorderColor="blue700"
+              value={this.state.qty}
+              onChangeText={text => this.setState({ qty: text })}
+            />
+          </Div>
           <TouchableOpacity style={styles.dCenter} >
-            <Button style={styles.donateContainer} gradient onPress={() => this.props.navigation.navigate('CharityDonate')}>
+            <Button style={styles.donateContainer} gradient onPress={() => this.props.navigation.navigate('DonateSuccess', {
+              charity: article.title,
+              donationAmount: this.state.qty
+            })}>
               <Text style={styles.donate}>Donate</Text>
             </Button>
           </TouchableOpacity>

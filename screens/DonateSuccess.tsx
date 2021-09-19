@@ -82,7 +82,7 @@ export default class DonateSuccess extends Component {
                 marginBottom: 10
               }}
             >
-              You just donated ${donationAmount} to {charity}!
+              You just donated {donationAmount} to {charity}!
             </Text>
             <Button gradient onPress={() => this.props.navigation.pop(2)}>
               <Text white center>
@@ -98,6 +98,7 @@ export default class DonateSuccess extends Component {
 
 const styles = StyleSheet.create({
   login: {
+    backgroundColor: 'white',
     flex: 1,
     justifyContent: "center"
   },
