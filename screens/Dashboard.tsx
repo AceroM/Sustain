@@ -15,6 +15,7 @@ import Button from '../components/Button';
 import Card, { styles as cardStyles } from '../components/Card';
 import Text from '../components/Text';
 import theme from "../constants/Green";
+import charitiesList from "../constants/mock/charities";
 const { width } = Dimensions.get("window");
 
 const mocks = [
@@ -496,30 +497,47 @@ class Dashboard extends Component {
             <MapView
               style={{ marginVertical: 20, flex: 1, borderRadius: 30 }}
               region={{
-                latitude: 40.73978092263567,
-                longitude: -73.87333547273988,
+                latitude: 32.926987,
+                longitude: -96.998866,
                 latitudeDelta: 0.06,
                 longitudeDelta: 0.06,
               }}
               customMapStyle={require('../assets/mapstyles.json')}
+              minZoomLevel={-5}
+              zoomEnabled={true}
             >
               <Marker
                 rotation={-15}
                 anchor={{ x: 0.5, y: 0.5 }}
-                coordinate={{ latitude: 40.728399, longitude: -73.883771 }}
+                coordinate={{ latitude: 32.926987, longitude: -96.998866 }}
               >
                 <Badge color={rgba(theme.colors.primary, "0.2")} size={77}>
                   <TouchableOpacity activeOpacity={0.8}>
-                    <Badge color={rgba(theme.colors.primary, "0.2")} size={57}>
+                    <Badge color={rgba(theme.colors.primary, "0.2")} size={77}>
                       <Icon.MaterialCommunityIcons
-                        name="gift"
+                        name="map-marker"
                         size={57 / 2.5}
-                        color="black"
+                        color="green"
                       />
                     </Badge>
                   </TouchableOpacity>
                 </Badge>
               </Marker>
+              {charitiesList.map((charity) => {
+                return (
+                  <Marker
+                    rotation={-15}
+                    anchor={{ x: 0.5, y: 0.5 }}
+                    coordinate={{ latitude: parseFloat(charity.lat), longitude: parseFloat(charity.long) }}
+                  >
+                    <Icon.MaterialCommunityIcons
+                      name="map-marker"
+                      size={57 / 2.5}
+                      color="red"
+                    />
+                  </Marker>
+                )
+              })}
             </MapView>
           </Block>
           {/* <Block>
@@ -609,7 +627,7 @@ class Dashboard extends Component {
               scrollEventThrottle={16}
               snapToAlignment="center"
               style={{ overflow: 'visible', height: 280 }}
-              data={mocks}
+              data={charitiesList}
               keyExtractor={(item, index) => `${item.id}`}
               onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX } } }])}
               renderItem={({ item }) => this.renderDestination(item)}
