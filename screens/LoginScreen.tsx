@@ -52,10 +52,10 @@ export default class Login extends Component {
       <DismissKeyboard>
         <KeyboardAvoidingView style={styles.login} behavior="padding">
           <Block padding={[0, theme.sizes.base * 2]}>
-            <Text h1 bold>
-              Login
-            </Text>
             <Block middle>
+              <Text h1 bold>
+                Login
+              </Text>
               <Input
                 label="Email"
                 error={hasErrors("email")}

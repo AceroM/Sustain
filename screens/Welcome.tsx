@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import {
   Animated,
-  Dimensions, FlatList, Image, Modal, ScrollView, StyleSheet
+  Dimensions, FlatList, Image, ImageBackground, Modal, ScrollView, StyleSheet
 } from "react-native";
 import Block from '../components/Block';
 import Button from '../components/Button';
@@ -230,16 +230,16 @@ class Welcome extends Component {
     const { navigation } = this.props;
 
     return (
-      <Block>
+      <ImageBackground source={require('../assets/giving.jpeg')} style={{ width: '100%', height: '100%' }}>
         <Block center bottom flex={0.4}>
-          <Text h1 center bold>
+          <Text white h1 center bold>
             Create a more
             <Text h1 primary>
               {" "}
               sustainable
             </Text>
           </Text>
-          <Text h1 center bold>
+          <Text white h1 center bold>
             &nbsp;community, together.
           </Text>
           {/* <Text h3 gray2 style={{ marginTop: theme.sizes.padding / 2 }}>
@@ -247,8 +247,8 @@ class Welcome extends Component {
           </Text> */}
         </Block>
         <Block center middle>
-          {this.renderIllustrations()}
-          {this.renderSteps()}
+          {/* {this.renderIllustrations()} */}
+          {/* {this.renderSteps()} */}
         </Block>
         <Block middle flex={0.5} margin={[0, theme.sizes.padding * 2]}>
           <Button gradient onPress={() => navigation.navigate("Login")}>
@@ -268,7 +268,7 @@ class Welcome extends Component {
           </Button>
         </Block>
         {this.renderTermsService()}
-      </Block>
+      </ImageBackground>
     );
   }
 }

@@ -2,10 +2,11 @@ import Slider from '@react-native-community/slider';
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import { Div, Text, Toggle } from "react-native-magnus";
+import { Div, Text } from "react-native-magnus";
 import { useSelector } from 'react-redux';
 import { trpc } from '../api/trpc';
 import Divider from '../components/Divider';
+import Input from '../components/Input';
 import Colors from '../constants/Colors';
 import { RootTabScreenProps } from "../types";
 
@@ -67,9 +68,9 @@ export default function Settings({ navigation }: RootTabScreenProps<'Settings'>)
 
       <Divider />
 
-      <Toggle
+      <Input />
 
-      />
+      {/* <Toggle /> */}
     </Div>
   )
 }
