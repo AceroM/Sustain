@@ -9,7 +9,6 @@ import {
   TouchableWithoutFeedback
 } from "react-native";
 import Block from '../components/Block';
-// import { Button, Block, Input, Text } from "../components";
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Text from '../components/Text';
