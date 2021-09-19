@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FlatList, ImageSourcePropType, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Button, Div, Fab, Icon, Image, Input, Text } from 'react-native-magnus';
+import { Button, Div, Fab, Icon, Image, Input, Tag, Text } from 'react-native-magnus';
 import Layout from '../../constants/Layout';
 import charities from '../../constants/mock/charities';
 import { RootTabScreenProps } from '../../types';
@@ -62,18 +62,23 @@ export default function Charities({ navigation }: RootTabScreenProps<'Home'>) {
   const CharityCard = ({ title, source, category, description }: CharityCardProps) => (
     <Div my={15}>
       <Div alignItems="center">
-        <Image zIndex={10} source={source} h={100} w="90%" rounded="md" position="absolute" />
-        <Div w="100%" bg="#fff" pt={80} px={25} pb={15} rounded="md" shadow="sm" mt={30}>
-          <Div flex={1} flexDir="row" justifyContent="space-between">
-            <Text fontSize="3xl" fontWeight="bold">{title}</Text>
-            <Text fontSize="lg" color="gray400">{category}</Text>
+        <Image borderColor="gray400" borderWidth={0.5} zIndex={10} source={source} h={100} w="90%" rounded="md" position="absolute" />
+        <Div w="100%" bg="#fff" pt={76} px={25} pb={15} rounded="md" shadow="sm" mt={30}>
+          <Div flex={1} flexDir="row" flexWrap="wrap" alignItems="center" justifyContent="center">
+            <Div flex={1} flexDir="row" justifyContent="space-between">
+              <Text fontSize="3xl" fontWeight="bold">{title}</Text>
+            </Div>
+            <Tag fontWeight="bold" bg="#B2F5EA" color="#234E52">
+              {category}
+            </Tag>
+
           </Div>
           <Div>
             <Text>{description}</Text>
           </Div>
         </Div>
       </Div>
-    </Div>
+    </Div >
   )
 
   const CardRoute = () => (
@@ -133,6 +138,7 @@ export default function Charities({ navigation }: RootTabScreenProps<'Home'>) {
       <AddCard />
       <Div>
         <FlatList
+          style={{ padding: 7 }}
           ListHeaderComponent={Search}
           data={filtered}
           renderItem={({ item }: { item: CharityType }) => (
