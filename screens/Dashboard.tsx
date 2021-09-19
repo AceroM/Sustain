@@ -38,6 +38,7 @@ class Dashboard extends Component {
   scrollX = new Animated.Value(100);
   map = null
   state = {
+    curCharity: null,
     lat: 32.926987,
     long: -96.998866,
     showModal: false,
@@ -261,6 +262,7 @@ class Dashboard extends Component {
       const scrollOffset = event.nativeEvent.contentOffset
       if (scrollOffset.x < ((charitiesList.length - 1) * 375)) {
         const { lat, long } = charitiesList[Math.round(scrollOffset.x / 375)]
+        this.setState({ curCharity: charitiesList[Math.round(scrollOffset.x / 375)] })
         if (!lat || !long) {
           alert('asf')
         } else if (lat !== this.state.lat && long !== this.state.long) {
@@ -332,9 +334,24 @@ class Dashboard extends Component {
         <ScrollView
           style={{ marginBottom: 5, paddingHorizontal: theme.sizes.padding }}
         >
-          <Text spacing={0.4} transform="uppercase">
-            Recommended Charities
-          </Text>
+          <Div flexDir="row" alignItems="center" justifyContent="space-between">
+            <Text spacing={0.4} transform="uppercase">
+              Recommended Charities
+            </Text>
+            <TouchableOpacity onPress={() => {
+              navigation.navigate("FullMap", {
+                charity: this.state.curCharity
+              })
+            }}>
+
+              <FontAwesome
+                name="expand"
+                size={25}
+                color='#000'
+                style={{ marginRight: 15 }}
+              />
+            </TouchableOpacity>
+          </Div>
           <Block style={{ width: '100%', height: 200 }}>
             <MapView
               ref={ref => { this.map = ref }}

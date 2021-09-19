@@ -222,6 +222,20 @@ class Settings extends Component {
             </Block>
  */}
             {/* <Divider /> */}
+            {/* <Block horizontal>
+              <Button
+                gradient
+                onPress={() =>
+                  navigation.navigate(
+                    "DonationHistory",
+                  )
+                }
+              >
+                <Text bold white center>
+                  Donation History
+                </Text>
+              </Button>
+            </Block> */}
             <Block horizontal>
               <Button
                 gradient
@@ -231,7 +245,7 @@ class Settings extends Component {
                   )
                 }
               >
-                <Text white center>
+                <Text bold white center>
                   Sign Out
                 </Text>
               </Button>

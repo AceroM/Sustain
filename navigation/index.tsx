@@ -12,6 +12,8 @@ import CharityDonate from '../screens/CharityDonate';
 import CharityModal from '../screens/CharityModal';
 import TabOneScreen from '../screens/Dashboard';
 import DonateSuccess from '../screens/DonateSuccess';
+import DonationHistory from '../screens/DonationHistory';
+import FullMap from '../screens/FullMap';
 import LoginScreen from '../screens/LoginScreen';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
@@ -50,6 +52,8 @@ function RootNavigator() {
       <Stack.Screen name="DonateSuccess" component={DonateSuccess} options={{ headerShown: false }} />
       <Stack.Screen name="CharityArticle" component={CharityArticle} options={{ headerShown: false }} />
       <Stack.Screen name="CharityDonate" component={CharityDonate} options={{ headerShown: false }} />
+      <Stack.Screen name="FullMap" component={FullMap} options={{ headerShown: false }} />
+      <Stack.Screen name="DonationHistory" component={DonationHistory} options={{ headerShown: false }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
         <Stack.Screen name="Charity" component={CharityModal} />
