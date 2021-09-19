@@ -12,6 +12,7 @@ import * as Icon from "react-native-vector-icons";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import Octicons from 'react-native-vector-icons/Octicons';
 import { NavigationActions } from "react-navigation";
+import { connect } from "react-redux";
 import Badge from '../components/Badge';
 import Block, { styles as blockStyles } from '../components/Block';
 import Button from '../components/Button';
@@ -19,6 +20,7 @@ import Card, { styles as cardStyles } from '../components/Card';
 import Text from '../components/Text';
 import theme from "../constants/Green";
 import charitiesList from "../constants/mock/charities";
+import { addCategory } from '../store/recommended';
 const { width } = Dimensions.get("window");
 
 const profile = {
@@ -195,7 +197,10 @@ class Dashboard extends Component {
         <Div w={200} justifyContent="center">
           <Text>No More Charities!</Text>
           <Text>For more, Click{' '}
-            <TouchableOpacity onPress={() => navigation.navigate('Charities')}>
+            <TouchableOpacity onPress={() => {
+
+              navigation.navigate('Charities')
+            }}>
               <Text style={{ fontWeight: 'bold', color: theme.colors.active, position: 'absolute', bottom: -3.5 }}>Here</Text>
             </TouchableOpacity>
           </Text>
@@ -246,7 +251,9 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { profile, navigation, charities } = this.props;
+    console.log(`addCategory :>> `, addCategory)
+    console.log(`this.props :>> `, this.props)
+    const { categories, profile, navigation, charities } = this.props;
     const { lat, long } = this.state
 
     const onScroll = (event) => {
@@ -482,7 +489,15 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard
+const mapStateToProps = state => ({
+  categories: state
+});
+
+const mapDispatchToProps = () => ({
+  addCategory,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
 
 Dashboard.defaultProps = { profile };
 

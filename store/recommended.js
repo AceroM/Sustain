@@ -13,8 +13,9 @@ const slice = createSlice({
   },
 });
 
-export default slice.reducer
 const { addCategory } = slice.actions
+
+export default slice.reducer
 // export const addEditDeleteTodo = (todos) => async dispatch => {
 //   try {
 //     dispatch(addEditDeleteTodoSuccess(todos));
