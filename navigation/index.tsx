@@ -98,6 +98,7 @@ function BottomTabNavigator() {
         component={Charities}
         options={{
           title: 'Charities',
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="heart" color={color} />,
         }}
       />
@@ -106,6 +107,7 @@ function BottomTabNavigator() {
         component={Settings}
         options={{
           title: 'Settings',
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="cog" color={color} />,
         }}
       />

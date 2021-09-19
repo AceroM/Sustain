@@ -6,7 +6,6 @@ import {
 } from "react-native";
 // @ts-ignore
 import Slider from "react-native-slider";
-import { NavigationActions } from "react-navigation";
 import Block from '../components/Block';
 import Button from '../components/Button';
 import Divider from '../components/Divider';
@@ -108,7 +107,7 @@ class Settings extends Component {
 
     return (
       <React.Fragment>
-        <Block style={{ backgroundColor: 'white' }}>
+        <Block style={{ paddingTop: 48, backgroundColor: 'white' }}>
           <Block flex={false} row center space="between" style={styles.header}>
             <Text h1 bold>
               Settings
@@ -199,7 +198,7 @@ class Settings extends Component {
 
             <Divider margin={[theme.sizes.base, theme.sizes.base * 2]} />
 
-            <Block style={styles.sliders}>
+            {/* <Block style={styles.sliders}>
               <Block margin={[10, 0]}>
                 <Text gray2 style={{ marginBottom: 10 }}>
                   Search Range
@@ -221,15 +220,14 @@ class Settings extends Component {
                 </Text>
               </Block>
             </Block>
-            <Divider />
+ */}
+            {/* <Divider /> */}
             <Block horizontal>
               <Button
                 gradient
                 onPress={() =>
                   navigation.navigate(
-                    "MainStack",
-                    {},
-                    NavigationActions.navigate({ routeName: "Welcome" })
+                    "Welcome",
                   )
                 }
               >
@@ -251,11 +249,11 @@ export default Settings;
 
 const styles = StyleSheet.create({
   header: {
-    paddingHorizontal: theme.sizes.base * 2
+    paddingHorizontal: 25,
   },
   avatar: {
-    height: theme.sizes.base * 2.2,
-    width: theme.sizes.base * 2.2,
+    height: 50,
+    width: 50,
     borderRadius: theme.sizes.padding
   },
   inputs: {

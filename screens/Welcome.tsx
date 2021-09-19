@@ -234,7 +234,7 @@ class Welcome extends Component {
         <Block center bottom flex={0.4}>
           <Text white h1 center bold>
             Create a more
-            <Text h1 primary>
+            <Text h1 style={{ color: '#46c5fd' }}>
               {" "}
               sustainable
             </Text>

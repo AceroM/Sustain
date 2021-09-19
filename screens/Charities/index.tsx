@@ -21,10 +21,15 @@ export default function Charities({ navigation }: RootTabScreenProps<'Home'>) {
     <Div>
       <Div alignItems="center" flexDir="row" justifyContent="space-between">
         <Text fontWeight="bold" fontSize="4xl">
-          Explore
+          Explore Charities
         </Text>
 
-        <Image h={50} w={50} rounded={999} source={require("../../assets/images/avatar.jpg")} />
+        <TouchableOpacity onPress={() => {
+          navigation.navigate("Settings")
+        }}>
+
+          <Image h={50} w={50} rounded={999} source={require("../../assets/images/avatar.jpg")} />
+        </TouchableOpacity>
       </Div>
       <Input
         suffix={
@@ -124,7 +129,7 @@ export default function Charities({ navigation }: RootTabScreenProps<'Home'>) {
   )
 
   return (
-    <Div bg="white" p={25}>
+    <Div mt={30} bg="white" p={25}>
       <AddCard />
       <Div>
         <FlatList

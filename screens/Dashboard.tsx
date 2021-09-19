@@ -271,7 +271,7 @@ class Dashboard extends Component {
     }
 
     return (
-      <ScrollView style={{ alignSelf: "stretch", marginTop: 15, backgroundColor: "white" }}>
+      <ScrollView style={{ alignSelf: "stretch", marginTop: 22, backgroundColor: "white" }}>
         <View style={styles.view}>
           <View>
             <Text style={{ color: theme.colors.caption }}>Welcome Back,</Text>
@@ -280,7 +280,7 @@ class Dashboard extends Component {
           <TouchableOpacity
             onPress={() =>
               navigation.navigate(
-                "SettingsStack",
+                "Settings",
                 {},
                 NavigationActions.navigate({ routeName: "Settings" })
               )
@@ -548,8 +548,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   avatar: {
-    height: theme.sizes.base * 3,
-    width: theme.sizes.base * 3,
+    height: 50,
+    width: 50,
     borderRadius: theme.sizes.padding,
   },
   vLine: {

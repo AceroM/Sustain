@@ -14,6 +14,7 @@ const { manifest }: { manifest: any } = Constants;
 const localhost = `http://${manifest.debuggerHost?.split(':').shift()}:19000`;
 
 export default function App() {
+  console.disableYellowBox = true
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
   const [queryClient] = useState(() => new QueryClient());

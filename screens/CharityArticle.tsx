@@ -226,6 +226,8 @@ class CharityArticle extends Component {
       // return newDate
     }
 
+    const msg = `New Donation - Miguel is sending you 1 ${this.state.item} from 1580 Point W Blvd, Coppell, TX 75019 in ${calculateTime()} minutes!`
+
     return (
       <View style={[styles.flex, styles.white]}>
         <View style={[styles.flex, styles.row, styles.header]}>
@@ -361,13 +363,11 @@ class CharityArticle extends Component {
             <Button style={styles.donateContainer} gradient onPress={() => {
               // send twilio api request here
               console.log('sending request');
-              fetch('https://pinnacle-6257.twil.io/text', {
+              fetch('https://pinnacle-6257.twil.io/text?Body=' + msg, {
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                method: 'POST', body: {
-                  Body: `New Donation - Miguel is sending you 1 ${this.state.qty} from 1580 Point W Blvd, Coppell, TX 75019 in ${calculateTime()} minutes!`
-                },
+                method: 'POST'
               })
                 .then(res => res.json())
                 .then(data => {
