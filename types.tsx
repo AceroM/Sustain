@@ -18,6 +18,7 @@ export type RootStackParamList = {
   Login: undefined
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   CharityArticle: undefined;
+  CharityDonate: undefined;
   DonateSuccess: undefined;
   Modal: undefined;
   Charity: CharityType;

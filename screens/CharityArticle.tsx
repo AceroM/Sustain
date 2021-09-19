@@ -2,11 +2,12 @@
 
 import React, { Component } from 'react';
 import { Animated, Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Icon, Input } from "react-native-magnus";
+import { Div, Icon } from "react-native-magnus";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Button from '../components/Button';
 import theme from "../constants/Green";
+import Layout from '../constants/Layout';
 
 const { width, height } = Dimensions.get('window');
 
@@ -117,6 +118,11 @@ const styles = StyleSheet.create({
 class CharityArticle extends Component {
   scrollX = new Animated.Value(0);
 
+  state = {
+    desc: this.props.route.params.article.description.split('').slice(0, 180),
+    setDesc: false
+  }
+
   renderDots = () => {
     const { article } = this.props.route.params
     const dotPosition = Animated.divide(this.scrollX, width);
@@ -162,6 +168,18 @@ class CharityArticle extends Component {
     const { navigation } = this.props
     const { article } = this.props.route.params
 
+    const SummaryCard = ({ icon, description, value, color }: { icon: string, description: string, value: string, color: string }) => (
+      <Div alignItems="center" flexDir="row" rounded="lg" w="80%" p={Layout.spacing} my={8} mx={Layout.spacing} bg={color}>
+        <Div mr={Layout.spacing} justifyContent="center" alignItems="center" w={45} h={45} rounded="md" bg="black">
+          <Icon name={icon} size={23} color="#fff" />
+        </Div>
+        <Div>
+          <Text fontWeight="bold" fontSize={50}>{value}</Text>
+          <Text fontWeight="bold" fontSize={15} color="gray700">{description}</Text>
+        </Div>
+      </Div>
+    )
+
     return (
       <View style={[styles.flex, styles.white]}>
         <View style={[styles.flex, styles.row, styles.header]}>
@@ -183,7 +201,12 @@ class CharityArticle extends Component {
             snapToAlignment="center"
             onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX } } }])}
           >
-            {
+            <Image
+              source={article.source}
+              resizeMode='cover'
+              style={{ width, height: width }}
+            />
+            {/* {
               article.images.map((img, index) =>
                 <Image
                   key={`${index}-${img}`}
@@ -192,47 +215,46 @@ class CharityArticle extends Component {
                   style={{ width, height: width }}
                 />
               )
-            }
+            } */}
           </ScrollView>
-          {this.renderDots()}
+          {/* {this.renderDots()} */}
         </View>
         <View style={[styles.flex, styles.content]}>
           <View style={[styles.flex, styles.contentHeader]}>
-            <Image style={[styles.avatar, styles.shadow]} source={{ uri: article.user.avatar }} />
+            {/* TODO: add avatar image */}
+            {/* <Image style={[styles.avatar, styles.shadow]} source={{ uri: article.user.avatar }} /> */}
             <Text style={styles.title}>{article.title}</Text>
-            <View style={[
+            {/* <View style={[
               styles.row,
-              { alignItems: 'center', marginVertical: theme.sizes.margin / 2 }
+              { alignItems: 'center', marginVertical: theme.sizes.margin / 4 }
             ]}>
+              {this.renderRatings(4.4)}
               {this.renderRatings(article.rating)}
               <Text style={{ color: theme.colors.active }}>
-                {article.rating}
+                {4.4}
               </Text>
-              <Text style={{ marginLeft: 8, color: theme.colors.caption }}>
-                ({article.reviews} reviews)
-              </Text>
-            </View>
-            <TouchableOpacity>
+            </View> */}
+            <Text style={{ fontWeight: 'bold', color: theme.colors.active, marginVertical: 12 }}>
+              {article.website}
+            </Text>
+            <TouchableOpacity onPress={() => this.setState({ desc: !this.state.setDesc ? article.description : article.description.split('').slice(0, 180), setDesc: !this.state.setDesc })}>
               <Text style={styles.description}>
-                {article.description.split('').slice(0, 180)}...
-                <Text style={{ color: theme.colors.active }}> Read more</Text>
+                {this.state.desc}{this.state.setDesc ? '' : '....'}
+                <Text style={{ color: theme.colors.active }}> Read {!this.state.setDesc ? 'More' : 'Less'} </Text>
               </Text>
             </TouchableOpacity>
           </View>
-          <Input
-            ml={28}
-            placeholder="Username"
-            py={20}
-            p={10}
-            w="85%"
-            focusBorderColor="blue700"
-            suffix={<Icon name="search" color="gray900" fontFamily="Feather" />}
-          />
-          <View style={styles.dCenter}>
-            <Button style={styles.donateContainer} gradient>
+          {/* <SummaryCard
+            icon='heart'
+            color='#ebfdee'
+            value='58'
+            description='Kids saved from poverty'
+          /> */}
+          <TouchableOpacity style={styles.dCenter} >
+            <Button style={styles.donateContainer} gradient onPress={() => this.props.navigation.navigate('CharityDonate')}>
               <Text style={styles.donate}>Donate</Text>
             </Button>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     )

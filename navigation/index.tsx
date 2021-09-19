@@ -11,6 +11,7 @@ import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
 import Charities from '../screens/Charities';
 import CharityArticle from '../screens/CharityArticle';
+import CharityDonate from '../screens/CharityDonate';
 import CharityModal from '../screens/CharityModal';
 import TabOneScreen from '../screens/Dashboard';
 import DonateSuccess from '../screens/DonateSuccess';
@@ -22,6 +23,7 @@ import Welcome from '../screens/Welcome';
 // import SettingsTwo from '../screens/SettingsTwo';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -47,6 +49,7 @@ function RootNavigator() {
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Screen name="DonateSuccess" component={DonateSuccess} options={{ headerShown: false }} />
       <Stack.Screen name="CharityArticle" component={CharityArticle} options={{ headerShown: false }} />
+      <Stack.Screen name="CharityDonate" component={CharityDonate} options={{ headerShown: false }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
         <Stack.Screen name="Charity" component={CharityModal} />
