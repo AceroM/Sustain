@@ -232,6 +232,13 @@ class Welcome extends Component {
     return (
       <ImageBackground source={require('../assets/city.png')} style={{ width: '100%', height: '100%' }}>
         <Block center bottom flex={0.4}>
+        </Block>
+        <Block center middle>
+          <Text style={{ fontSize: 48, fontWeight: 'bold', color: '#46c5fd' }}>
+            Sustain
+          </Text>
+          <Block flex={0.1}>
+          </Block>
           <Text white h1 center bold>
             Create a more
             <Text h1 style={{ color: '#46c5fd' }}>
@@ -242,14 +249,8 @@ class Welcome extends Component {
           <Text white h1 center bold>
             &nbsp;community, together.
           </Text>
-          {/* <Text h3 gray2 style={{ marginTop: theme.sizes.padding / 2 }}>
-            Enjoy the experience.
-          </Text> */}
         </Block>
-        <Block center middle>
-          {/* {this.renderIllustrations()} */}
-          {/* {this.renderSteps()} */}
-        </Block>
+        
         <Block middle flex={0.5} margin={[0, theme.sizes.padding * 2]}>
           <Button gradient onPress={() => navigation.navigate("Login")}>
             <Text center semibold white>
@@ -261,11 +262,11 @@ class Welcome extends Component {
               Signup
             </Text>
           </Button>
-          <Button onPress={() => this.setState({ showTerms: true })}>
-            <Text center caption gray>
+          {/* <Button style={{ backgroundColor: 'transparent' }} onPress={() => this.setState({ showTerms: true })}>
+            <Text center caption style={{ color: 'transparent'}}>
               Terms of service
             </Text>
-          </Button>
+          </Button> */}
         </Block>
         {this.renderTermsService()}
       </ImageBackground>
