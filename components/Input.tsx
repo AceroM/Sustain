@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     width: theme.sizes.base * 2,
     height: theme.sizes.base * 2,
     top: theme.sizes.base,
-    right: 0
+    right: 0,
+    backgroundColor: "transparent"
   }
 });
